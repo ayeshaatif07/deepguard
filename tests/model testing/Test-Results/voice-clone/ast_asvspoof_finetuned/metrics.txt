@@ -1,0 +1,36 @@
+DeepGuard Signal 2 (voice clone) - fine-tuned model evaluation
+======================================================================
+Base checkpoint: MattyB95/AST-ASVspoof2019-Synthetic-Voice-Detection
+Split: GENUINE disjoint train/test - 50 real + 50 original-fake + 30 gTTS for
+training (130 total, further split 85/15 internally for checkpoint selection);
+50 real + 50 original-fake + 30 gTTS for held-out testing (130 total),
+never touched until this final evaluation.
+Epochs: 8  LR: 1e-05  Batch size: 4
+
+POOLED RESULTS (all 130 held-out test clips):
+Accuracy | Macro P | Macro R | Macro F1 | AUC  
+---------+---------+---------+----------+------
+0.938    | 0.931   | 0.946   | 0.936    | 0.985
+
+Per-class breakdown:
+Class | Support | Precision | Recall | F1   
+------+---------+-----------+--------+------
+real  | 50      | 0.875     | 0.980  | 0.925
+fake  | 80      | 0.986     | 0.912  | 0.948
+
+Confusion matrix (rows=true, cols=pred):
+True \ Pred | real | fake
+------------+------+-----
+real        | 49   | 1   
+fake        | 7    | 73  
+
+PER-CATEGORY BREAKDOWN (held-out, never seen in training):
+Category      | Correct | Total | Accuracy
+--------------+---------+-------+---------
+real          | 49      | 50    | 98.0%   
+original_fake | 43      | 50    | 86.0%   
+gtts          | 30      | 30    | 100.0%  
+
+This per-category number is the real answer to "does this generalize" -
+the gtts row specifically reflects performance on gTTS clips the model
+never saw during training or checkpoint selection, unlike v1's evaluation.

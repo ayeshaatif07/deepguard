@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,wer,cer,avg_inference_time,model
+500,0,0.04180172124734548,0.013790428580663233,1.3383998026847839,facebook/wav2vec2-large-960h-lv60-self

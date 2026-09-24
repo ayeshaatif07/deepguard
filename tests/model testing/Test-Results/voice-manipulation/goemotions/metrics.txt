@@ -1,0 +1,23 @@
+DeepGuard Signal 3 (voice manipulation) model evaluation
+======================================================================
+Model tested : goemotions (SamLowe/roberta-base-go_emotions (derived manipulation score))
+Dataset CSV  : /Users/ayeshaatif7/Desktop/DEEPFAKE FYP MIDTERM/deepguard/Tests/Datasets/voice-manipulation/signal3_transcripts_final.csv
+Transcripts  : 60
+Device       : mps
+
+Summary:
+Accuracy | Macro P | Macro R | Macro F1 | AUC   | Avg inference | N (skipped)
+---------+---------+---------+----------+-------+---------------+------------
+0.533    | 0.759   | 0.533   | 0.403    | 0.936 | 0.037s        | 60 (0)     
+
+Per-class breakdown:
+Class            | Support | Precision | Recall | F1   
+-----------------+---------+-----------+--------+------
+non-manipulative | 30      | 0.517     | 1.000  | 0.682
+manipulative     | 30      | 1.000     | 0.067  | 0.125
+
+Confusion matrix (rows=true, cols=pred):
+True \ Pred      | non-manipulative | manipulative
+-----------------+------------------+-------------
+non-manipulative | 30               | 0           
+manipulative     | 28               | 2           

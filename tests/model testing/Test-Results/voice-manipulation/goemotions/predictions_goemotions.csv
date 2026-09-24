@@ -1,0 +1,61 @@
+clip_id,text,y_true,y_pred,inference_time,error,prob_non-manipulative,prob_manipulative
+CLIP_01,Your account has been frozen. Call us back immediately or you will lose all your funds today.,manipulative,non-manipulative,0.7686071395874023,,0.9008744838647544,0.09912551613524556
+CLIP_02,This is your bank. Suspicious activity detected. Verify now or your card will be cancelled.,manipulative,non-manipulative,0.02294921875,,0.9702005060389638,0.029799493961036205
+CLIP_03,Final warning. Your payment is overdue. Legal action starts in 24 hours unless you call us.,manipulative,non-manipulative,0.019073963165283203,,0.9003724365029484,0.0996275634970516
+CLIP_04,We have flagged unusual transactions on your account. Do not use your card until you speak to us.,manipulative,non-manipulative,0.056060791015625,,0.8671922939247452,0.13280770607525483
+CLIP_05,Your loan application has been approved but expires in one hour. Call now to secure your funds.,manipulative,non-manipulative,0.018097877502441406,,0.988439964450663,0.011560035549337044
+CLIP_06,HMRC has issued a tax fraud warrant in your name. Contact us within 30 minutes to avoid arrest.,manipulative,non-manipulative,0.052100181579589844,,0.9797163643524982,0.020283635647501796
+CLIP_07,You owe unpaid taxes. Officers will arrive at your address today if you do not settle this immediately.,manipulative,manipulative,0.02004098892211914,,0.4925951903569512,0.5074048096430488
+CLIP_08,This is a final notice. Failure to respond will result in court proceedings filed against you tomorrow.,manipulative,non-manipulative,0.018376827239990234,,0.8711827287916094,0.1288172712083906
+CLIP_09,Your computer has a critical virus stealing your passwords. Do not turn it off. Call us right now.,manipulative,non-manipulative,0.018475055694580078,,0.88891133479774,0.11108866520226002
+CLIP_10,Microsoft has detected malware on your device. Your data is at risk. Press 1 to speak to a technician.,manipulative,non-manipulative,0.05218696594238281,,0.9498252863995731,0.05017471360042691
+CLIP_11,Your electricity will be cut off in two hours unless you make payment immediately over this call.,manipulative,non-manipulative,0.0559239387512207,,0.907114275265485,0.09288572473451495
+CLIP_12,This is your energy provider. Your account is suspended. Pay now or lose supply before tonight.,manipulative,non-manipulative,0.01802515983581543,,0.8154818926122971,0.1845181073877029
+CLIP_13,The Home Office has issued a removal order. You must report to us within 12 hours or face detention.,manipulative,non-manipulative,0.018413782119750977,,0.9171982948901132,0.08280170510988683
+CLIP_14,Your visa has been flagged for fraud. Do not leave your home. Contact us immediately.,manipulative,non-manipulative,0.0177609920501709,,0.6903825527988374,0.3096174472011626
+CLIP_15,Your test results are urgent. The doctor must speak with you before 5 PM today. Call back now.,manipulative,non-manipulative,0.017673015594482422,,0.9555592708056793,0.04444072919432074
+CLIP_16,We could not process your prescription. Your medication will be cancelled unless you call us today.,manipulative,non-manipulative,0.01734304428100586,,0.6925089485011995,0.3074910514988005
+CLIP_17,Congratulations. You have won a cash prize. This offer expires at midnight. Call now to claim.,manipulative,non-manipulative,0.01717400550842285,,0.9909974772017449,0.009002522798255086
+CLIP_18,You have been selected for an exclusive reward. Act today. This cannot be offered again after tonight.,manipulative,non-manipulative,0.01743793487548828,,0.9903044282400515,0.009695571759948507
+CLIP_19,I am stuck and need money urgently. Please do not tell anyone. You are the only one I can ask.,manipulative,non-manipulative,0.05429887771606445,,0.8889969759620726,0.11100302403792739
+CLIP_20,There has been an accident. I need funds for the hospital. Please send money now and do not call mum.,manipulative,non-manipulative,0.017859935760498047,,0.942961242981255,0.057038757018744946
+CLIP_21,The position is yours but you must pay the registration fee today. It is fully refundable. Act fast.,manipulative,non-manipulative,0.0164029598236084,,0.9845677563280333,0.015432243671966717
+CLIP_22,This investment returns 300 percent and is only open for 48 hours. You must decide now.,manipulative,non-manipulative,0.017464160919189453,,0.9785150595998857,0.021484940400114283
+CLIP_23,"We have been instructed to collect your debt. If unpaid today, bailiffs will be sent to your address.",manipulative,non-manipulative,0.017100095748901367,,0.965896316774888,0.034103683225112036
+CLIP_24,A county court judgment has been filed against you. Call us now to avoid your credit being destroyed.,manipulative,non-manipulative,0.01769399642944336,,0.7939009387046099,0.20609906129539013
+CLIP_25,Your health cover expires at midnight. You will have no protection tomorrow unless you renew today.,manipulative,non-manipulative,0.02025294303894043,,0.9603425344103016,0.039657465589698404
+CLIP_26,We cannot process your claim. You must contact us before end of day or your policy will be voided.,manipulative,manipulative,0.01772022247314453,,0.42179533120361157,0.5782046687963884
+CLIP_27,Someone has accessed your account from another country. Verify your identity now or it will be locked.,manipulative,non-manipulative,0.01910090446472168,,0.969860813987907,0.030139186012092978
+CLIP_28,Your account shows suspicious login. Confirm your details in the next 10 minutes to stay protected.,manipulative,non-manipulative,0.01756596565246582,,0.9297511379700154,0.0702488620299846
+CLIP_29,Children are dying right now. Every second you wait costs a life. Please donate immediately.,manipulative,non-manipulative,0.017657756805419922,,0.951314122416079,0.048685877583920956
+CLIP_30,Families have lost everything in the disaster. You have the power to help. Do not wait until tomorrow.,manipulative,non-manipulative,0.018434762954711914,,0.9557366549270228,0.044263345072977245
+CLIP_31,Your order has been dispatched and will arrive within three to five working days.,non-manipulative,non-manipulative,0.05476498603820801,,0.9925017654895782,0.007498234510421753
+CLIP_32,We are calling to confirm your delivery is scheduled for tomorrow between 9 AM and 1 PM.,non-manipulative,non-manipulative,0.019269227981567383,,0.9930514745065011,0.006948525493498892
+CLIP_33,Your parcel is ready for collection at your local post office.,non-manipulative,non-manipulative,0.056416988372802734,,0.9895327707781689,0.010467229221831076
+CLIP_34,This is a reminder that you have a dental appointment on Thursday at 2 PM.,non-manipulative,non-manipulative,0.051722049713134766,,0.9844725570292212,0.015527442970778793
+CLIP_35,Your GP appointment is confirmed for Monday at 10:30 AM. Please arrive five minutes early.,non-manipulative,non-manipulative,0.01802206039428711,,0.9931257192220073,0.006874280777992681
+CLIP_36,We are calling to remind you about your car service booked for Friday morning.,non-manipulative,non-manipulative,0.018713951110839844,,0.97991996849305,0.020080031506950036
+CLIP_37,Thank you for contacting us. Your query has been logged and we will respond within two days.,non-manipulative,non-manipulative,0.018905162811279297,,0.98698704369599,0.013012956304010004
+CLIP_38,We received your complaint and a member of our team will be in touch within 48 hours.,non-manipulative,non-manipulative,0.017223119735717773,,0.9894279480213299,0.01057205197867006
+CLIP_39,Your refund has been processed and should appear in your account within five working days.,non-manipulative,non-manipulative,0.01851797103881836,,0.9900271584047005,0.009972841595299542
+CLIP_40,Good morning. Today will be partly cloudy with a high of 18 degrees and light winds.,non-manipulative,non-manipulative,0.017480850219726562,,0.9879255599807948,0.012074440019205213
+CLIP_41,Temperatures will drop this evening. A light jacket is recommended if you are heading out.,non-manipulative,non-manipulative,0.017248153686523438,,0.9838833069079556,0.016116693092044443
+CLIP_42,Your assignment submission has been received. Feedback will be available by the end of next week.,non-manipulative,non-manipulative,0.016987085342407227,,0.9935916508839,0.006408349116099998
+CLIP_43,The library is closed on Monday for maintenance but will reopen Tuesday at 9 AM.,non-manipulative,non-manipulative,0.017857074737548828,,0.9867431475431658,0.013256852456834167
+CLIP_44,Your monthly statement is now available to view in your online banking app.,non-manipulative,non-manipulative,0.05422520637512207,,0.9910833226458635,0.008916677354136482
+CLIP_45,We are letting you know your direct debit has been successfully processed this morning.,non-manipulative,non-manipulative,0.01807880401611328,,0.9920788542367518,0.007921145763248205
+CLIP_46,Thank you for attending the interview. We will be in touch with a decision by the end of the week.,non-manipulative,non-manipulative,0.01659393310546875,,0.9884653191547841,0.011534680845215917
+CLIP_47,This is a reminder about the team meeting scheduled for Wednesday at 10 AM.,non-manipulative,non-manipulative,0.01698470115661621,,0.9898335109464824,0.01016648905351758
+CLIP_48,Your annual gas and electricity review is due. We will send options by post within 10 days.,non-manipulative,non-manipulative,0.017483949661254883,,0.989826087054098,0.010173912945901975
+CLIP_49,Your meter reading has been recorded. Your next bill will reflect the updated usage.,non-manipulative,non-manipulative,0.02025580406188965,,0.988466599403182,0.011533400596817955
+CLIP_50,Your flight departs at 14:30 from Terminal 2. Please arrive at least two hours before departure.,non-manipulative,non-manipulative,0.017757177352905273,,0.987858824635623,0.012141175364376977
+CLIP_51,Your hotel booking is confirmed for Friday. Check-in is from 3 PM and checkout by 11 AM.,non-manipulative,non-manipulative,0.017206907272338867,,0.9932469266641419,0.006753073335858062
+CLIP_52,"Hi, just checking if you are free on Saturday evening for dinner. No worries if not.",non-manipulative,non-manipulative,0.01783609390258789,,0.9867960992851295,0.013203900714870542
+CLIP_53,I wanted to let you know the book club meeting has been moved to next Tuesday at 7 PM.,non-manipulative,non-manipulative,0.01751875877380371,,0.9841902046464384,0.01580979535356164
+CLIP_54,Your prescription is ready for collection at the pharmacy. We are open until 6 PM today.,non-manipulative,non-manipulative,0.017895936965942383,,0.9937153051432688,0.006284694856731221
+CLIP_55,This is a reminder to take your medication this evening with food as advised by your doctor.,non-manipulative,non-manipulative,0.01785874366760254,,0.9781479657976888,0.021852034202311188
+CLIP_56,The school will be closed on Friday for a training day. Normal lessons resume on Monday.,non-manipulative,non-manipulative,0.018050670623779297,,0.9909837614686694,0.0090162385313306
+CLIP_57,Your child's parents evening is booked for next Thursday at 4:30 PM.,non-manipulative,non-manipulative,0.01904296875,,0.9893371284124441,0.010662871587555856
+CLIP_58,The quarterly report has been shared with your team. Please review it before Friday's meeting.,non-manipulative,non-manipulative,0.017334938049316406,,0.9817082028021105,0.018291797197889537
+CLIP_59,Your invoice has been paid. A receipt has been sent to your registered email address.,non-manipulative,non-manipulative,0.0532991886138916,,0.9910472833144013,0.008952716685598716
+CLIP_60,The community centre is hosting a free event on Saturday from 10 AM to 2 PM. All are welcome.,non-manipulative,non-manipulative,0.01843881607055664,,0.9933359528658912,0.006664047134108841

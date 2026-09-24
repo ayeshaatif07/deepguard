@@ -1,0 +1,29 @@
+Functionality Testing Results
+============================================================
+Run at: 2026-09-24T03:25:37
+
+[PASS] FR1      test_fr1_upload_validation::test_valid_video_upload_accepted
+[PASS] FR1      test_fr1_upload_validation::test_valid_image_upload_accepted
+[PASS] FR1      test_fr1_upload_validation::test_unsupported_image_extension_rejected
+[PASS] FR1      test_fr1_upload_validation::test_missing_video_field_rejected
+[PASS] FR1      test_fr1_upload_validation::test_missing_image_field_rejected
+[PASS] FR1      test_fr1_upload_validation::test_empty_filename_rejected
+[PASS] FR2      test_fr2_video_signal1::test_video_analysis_returns_well_formed_verdict
+[PASS] FR3      test_fr3_image_signal1b::test_image_analysis_returns_well_formed_verdict
+[PASS] FR4/FR5  test_fr4_fr5_voice_signals::test_voice_analysis_returns_well_formed_clone_and_manipulation_result
+[PASS] FR4/FR5  test_fr4_fr5_voice_signals::test_voice_analysis_transcribes_real_speech
+[PASS] FR4/FR5  test_fr4_fr5_voice_signals::test_voice_analysis_rejects_unsupported_extension
+[PASS] FR4/FR5  test_fr4_fr5_voice_signals::test_voice_analysis_persists_both_signals_for_dashboard
+[PASS] FR6      test_fr6_caption_coherence::test_coherence_scoring_returns_well_formed_result
+[PASS] FR6      test_fr6_caption_coherence::test_coherence_scoring_handles_missing_transcript_gracefully
+[PASS] FR6      test_fr6_caption_coherence::test_coherence_scoring_persists_result_for_dashboard
+[PASS] FR7      test_fr7_fusion_verdict::test_fusion_picks_the_most_concerning_active_signal
+[PASS] FR7      test_fr7_fusion_verdict::test_fusion_is_not_a_simple_average
+[PASS] FR8      test_fr8_dashboard_display::test_dashboard_shows_empty_state_with_no_signals_run
+[PASS] FR8      test_fr8_dashboard_display::test_dashboard_shows_a_card_per_active_signal
+[PASS] FR8      test_fr8_dashboard_display::test_dashboard_usage_statistics_reflect_logged_analyses
+[PASS] FR9      test_fr9_partial_pipeline::test_stopping_after_signal1_saves_only_that_result
+[PASS] FR9      test_fr9_partial_pipeline::test_reset_dashboard_clears_all_saved_signals
+[PASS] FR9      test_fr9_partial_pipeline::test_running_a_second_signal_after_stopping_adds_to_not_replaces_the_first
+
+Total: 23/23 passed

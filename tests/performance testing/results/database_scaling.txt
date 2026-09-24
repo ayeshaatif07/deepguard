@@ -1,0 +1,19 @@
+Database Scaling Benchmark (usage_log.db)
+============================================================
+
+  insert (1 row) @     100 rows          mean=0.001s  median=0.001s  p95=0.001s  min=0.000s  max=0.001s  (n=10)
+  get_usage_stats() @     100 rows       mean=0.000s  median=0.000s  p95=0.000s  min=0.000s  max=0.000s  (n=10)
+  insert (1 row) @   1,000 rows          mean=0.000s  median=0.000s  p95=0.001s  min=0.000s  max=0.001s  (n=10)
+  get_usage_stats() @   1,000 rows       mean=0.001s  median=0.001s  p95=0.001s  min=0.000s  max=0.001s  (n=10)
+  insert (1 row) @  10,000 rows          mean=0.001s  median=0.000s  p95=0.001s  min=0.000s  max=0.001s  (n=10)
+  get_usage_stats() @  10,000 rows       mean=0.004s  median=0.004s  p95=0.005s  min=0.004s  max=0.005s  (n=10)
+  insert (1 row) @ 100,000 rows          mean=0.001s  median=0.001s  p95=0.001s  min=0.000s  max=0.001s  (n=10)
+  get_usage_stats() @ 100,000 rows       mean=0.054s  median=0.054s  p95=0.055s  min=0.054s  max=0.055s  (n=10)
+
+Notes:
+- Run against a throwaway copy of usage_log.db (results/_scaling_test.db),
+  never the real usage_log.db, using the real log_usage() and
+  get_usage_stats() functions from modules/usage_log.py unmodified.
+- get_usage_stats() runs one GROUP BY query over the whole table on
+  every dashboard page load (verdict.html), so its scaling with row
+  count is the more operationally relevant of the two numbers.

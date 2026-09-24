@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,wer,cer,avg_inference_time,model
+500,0,0.12138146864870906,0.05503242905470922,1.929705934047699,openai/whisper-base

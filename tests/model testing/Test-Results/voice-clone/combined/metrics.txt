@@ -1,0 +1,21 @@
+Signal 2 (voice clone) — combined model comparison
+==========================================================================================
+
+STANDARD GROUP - all evaluated on the same official 200-clip benchmark
+(voice_clone_200_sample.csv, 100 real / 100 fake across 6 TTS platforms):
+------------------------------------------------------------------------------------------
+Model                             Accuracy   MacroP   MacroR  MacroF1     AUC  AvgInfer
+------------------------------------------------------------------------------------------
+melodymachine                        0.490    0.469    0.490    0.387   0.537    0.368s
+mothecreator                         0.790    0.792    0.790    0.790   0.832    0.160s
+ast_asvspoof                         0.595    0.776    0.595    0.516   0.669    0.374s
+
+FINE-TUNED MODEL - evaluated on a SEPARATE, disjoint 130-clip held-out test
+set (50 real + 50 original-fake + 30 gTTS, none seen during fine-tuning) -
+NOT directly comparable to the standard group above (different test data,
+includes gTTS which the standard 200-clip benchmark does not):
+------------------------------------------------------------------------------------------
+ast_asvspoof_finetuned               0.938    0.931    0.946    0.936   0.985       n/a
+
+See finetune_ast_asvspoof.py and Tests/Test-Results/voice-clone/ast_asvspoof_finetuned/metrics.txt
+for the fine-tuned model's per-category breakdown (real / original-fake / gTTS individually).

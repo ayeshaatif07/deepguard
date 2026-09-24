@@ -1,0 +1,12 @@
+DeepGuard speech-to-text (ASR) model evaluation
+======================================================================
+Model tested : whisper_small (openai/whisper-small)
+Dataset CSV  : /Users/ayeshaatif7/Desktop/DEEPFAKE FYP MIDTERM/deepguard/Tests/Datasets/librispeech-test-other/librispeech_transcripts.csv
+Clips        : 500
+Device       : mps
+
+WER   | CER   | Avg inference | N (skipped)
+------+-------+---------------+------------
+0.079 | 0.036 | 3.335s        | 500 (0)    
+
+(lower WER/CER is better)

@@ -1,0 +1,9 @@
+Signal 4 (caption-content coherence) — combined model comparison
+======================================================================
+
+Model             | Accuracy | Macro F1 | AUC   | Best-thresh acc | Best thresh
+------------------+----------+----------+-------+-----------------+------------
+minilm            | 0.571    | 0.475    | 0.862 | 0.893           | 0.62       
+mpnet             | 0.500    | 0.388    | 0.827 | 0.821           | 0.57       
+stsb_crossencoder | 0.643    | 0.591    | 0.673 | 0.679           | 0.22       
+nli_deberta       | 0.500    | 0.333    | 0.485 | 0.607           | 0.01       

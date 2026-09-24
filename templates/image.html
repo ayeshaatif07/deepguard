@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Image Detection{% endblock %}
+
+{% block content %}
+<style>
+  /* Match the background of the Home and Video pages */
+  body {
+    background: url("{{ url_for('static', filename='images/background1.png') }}") center/cover fixed no-repeat;
+    background-color: var(--bg-color); /* fallback */
+  }
+  
+  .image-overlay {
+    background: rgba(13, 27, 42, 0.85); /* Slightly darker overlay for this intense background */
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeIn 1.2s ease-out;
+  }
+  
+  .image-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    display: inline-block;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(42, 179, 142, 0.2);
+  }
+  
+  .image-header h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #00FFFF, rgb(42, 179, 142));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  
+  .image-header p {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .upload-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(42, 179, 142, 0.5);
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(15px);
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .upload-glass::before {
+    display: none;
+  }
+  
+  .upload-glass .icon {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(42, 179, 142, 0.5));
+  }
+
+  .dev-notice {
+    margin-top: 2rem;
+    text-align: center;
+    background: rgba(42, 179, 142, 0.1);
+    border: 1px solid rgba(42, 179, 142, 0.3);
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    display: inline-block;
+    color: rgb(42, 179, 142);
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="image-overlay">
+  <div class="image-container">
+    <div style="text-align: center;">
+      <div class="image-header">
+        <h2>Image Detection</h2>
+        <p>Analyze static images for AI-generated tampering and deepfakes.</p>
+      </div>
+    </div>
+    
+    <label for="imageFile" class="upload-glass" id="uploadZone">
+      <div class="icon" id="uploadIcon"><i class="fa-solid fa-image"></i></div>
+      <h3 style="color: rgb(42, 179, 142); margin-bottom: 0.5rem; font-size: 1.8rem;">Upload Image File</h3>
+      <p style="color: var(--text-muted); margin: 0; font-size: 1.1rem;" id="uploadHint">Drag & drop or click to select (.jpg, .png, .webp)</p>
+      <input type="file" id="imageFile" accept=".jpg,.jpeg,.png,.webp" style="display:none;" onchange="handleImageUpload()"/>
+    </label>
+    
+    <div id="loader" class="loader-container" style="display: none; background: rgba(0, 0, 0, 0.5); padding: 3rem; border-radius: 16px; margin-top: 2rem; backdrop-filter: blur(10px); text-align: center;">
+        <div class="spinner"></div>
+        <h3 id="loaderText" style="color: rgb(42, 179, 142); margin-top: 1rem;">Analyzing Image...</h3>
+    </div>
+
+    <div id="results" class="results-glass" style="display: none; background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(255,255,255,0.1); width: 100%;">
+        <div class="results-header" style="text-align: center; margin-bottom: 2rem;">
+            <h3 style="color: rgb(42, 179, 142);">Analysis Results</h3>
+            <p class="text-muted" id="resultFilename" style="margin: 0; font-size: 0.95rem;"></p>
+        </div>
+        
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <div id="verdictBadge" class="verdict-badge" style="display: inline-block; padding: 1rem 2rem; font-size: 1.5rem; font-weight: bold; border-radius: 8px;"></div>
+        </div>
+
+        <div class="metrics-box" style="display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+            <div class="metric-item" style="text-align: center;">
+                <span style="display: block; margin-bottom: 0.5rem; color: #aaa;">AI Generation Probability</span>
+                <strong id="confidenceScore" style="color: rgb(42, 179, 142); font-size: 1.5rem;"></strong>
+            </div>
+            <div class="metric-item" style="text-align: center;">
+                <span style="display: block; margin-bottom: 0.5rem; color: #aaa;">Inference Time</span>
+                <strong id="inferenceTime" style="font-size: 1.5rem;"></strong>
+            </div>
+        </div>
+
+        <div style="background: rgba(42, 179, 142, 0.1); border-left: 4px solid rgb(42, 179, 142); padding: 1.5rem; border-radius: 4px 8px 8px 4px; margin-bottom: 2.5rem;">
+            <h4 style="margin-top: 0; color: rgb(42, 179, 142); margin-bottom: 0.5rem;">Explanation</h4>
+            <p id="explanationText" style="margin: 0; line-height: 1.7; font-size: 1.05rem;"></p>
+        </div>
+
+        <div class="action-btn-row">
+            <button class="btn-action btn-outline" onclick="resetUpload()">Analyse Another</button>
+            <a href="{{ url_for('verdict') }}" class="btn-action btn-solid">Add to Dashboard</a>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

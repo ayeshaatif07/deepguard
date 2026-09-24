@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,auc,model,real_support,real_precision,real_recall,real_f1,fake_support,fake_precision,fake_recall,fake_f1
+200,0,0.49,0.3675487470626831,0.4694749694749695,0.49,0.3869455463397043,0.5374,MelodyMachine/Deepfake-audio-detection-V2 (Wav2Vec2),100,0.4945054945054945,0.9,0.6382978723404256,100,0.4444444444444444,0.08,0.13559322033898305

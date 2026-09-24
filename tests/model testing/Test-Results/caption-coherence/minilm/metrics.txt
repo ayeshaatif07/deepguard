@@ -1,0 +1,23 @@
+DeepGuard Signal 4 (caption-content coherence) model evaluation
+======================================================================
+Model tested : minilm (sentence-transformers/all-MiniLM-L6-v2)
+Dataset CSV  : /Users/ayeshaatif7/Desktop/DEEPFAKE FYP MIDTERM/deepguard/Tests/Datasets/caption-coherence/signal4_coherence.csv
+Pairs        : 28
+Device       : mps
+
+Summary:
+Accuracy | Macro P | Macro R | Macro F1 | AUC   | Avg inference | N (skipped)
+---------+---------+---------+----------+-------+---------------+------------
+0.571    | 0.769   | 0.571   | 0.475    | 0.862 | 0.096s        | 28 (0)     
+
+Per-class breakdown:
+Class      | Support | Precision | Recall | F1   
+-----------+---------+-----------+--------+------
+Incoherent | 14      | 1.000     | 0.143  | 0.250
+Coherent   | 14      | 0.538     | 1.000  | 0.700
+
+Confusion matrix (rows=true, cols=pred):
+True \ Pred | Incoherent | Coherent
+------------+------------+---------
+Incoherent  | 2          | 12      
+Coherent    | 0          | 14      

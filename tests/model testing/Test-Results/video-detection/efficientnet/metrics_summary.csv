@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,precision,recall,f1,avg_inference_time,auc,auc_note,confusion_matrix,model,real_support,real_accuracy,real_precision,real_recall,real_f1,fake_support,fake_accuracy,fake_precision,fake_recall,fake_f1
+150,0,0.7266666666666667,0.8695652173913043,0.5333333333333333,0.6611570247933884,2.4811980740229287,0.7697777777777778,,"[[69, 6], [35, 40]]","EfficientNet-B7-NS (selimsef, DFDC Challenge solution)",75,0.92,0.6634615384615384,0.92,0.770949720670391,75,0.5333333333333333,0.8695652173913043,0.5333333333333333,0.6611570247933884

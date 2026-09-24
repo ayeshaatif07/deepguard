@@ -1,0 +1,23 @@
+DeepGuard Signal 1 (video) model evaluation
+======================================================================
+Model tested : universal
+Dataset CSV  : ../../../../tests/model testing/Datasets/video-detection/video_detection_150_official_sample.csv
+Videos       : 150
+Frames/video : 20
+Device       : mps
+
+Model                                              | Accuracy | Precision | Recall | F1    | AUC   | Avg Time (s) | N eval | N skipped
+---------------------------------------------------+----------+-----------+--------+-------+-------+--------------+--------+----------
+UniversalFakeDetect (CLIP ViT-L/14 + linear probe) | 0.500    | 0.000     | 0.000  | 0.000 | 0.623 | 5.22         | 150    | 0        
+
+Per-class breakdown [UniversalFakeDetect (CLIP ViT-L/14 + linear probe)]:
+  Class | Support | Accuracy | Precision | Recall | F1   
+  ------+---------+----------+-----------+--------+------
+  Real  | 75      | 1.000    | 0.500     | 1.000  | 0.667
+  Fake  | 75      | 0.000    | 0.000     | 0.000  | 0.000
+
+Confusion matrix [UniversalFakeDetect (CLIP ViT-L/14 + linear probe)] (rows=true, cols=pred):
+  True \ Pred | real | fake
+  ------------+------+-----
+  real        | 75   | 0   
+  fake        | 75   | 0   

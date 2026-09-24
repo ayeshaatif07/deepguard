@@ -1,0 +1,58 @@
+DeepGuard Signal 1 (video) — combined model comparison
+======================================================================
+Models compared : cvit, efficientnet, naman, universal
+
+Model                                                  | Accuracy | Precision | Recall | F1    | AUC   | Avg Time (s) | N eval | N skipped
+-------------------------------------------------------+----------+-----------+--------+-------+-------+--------------+--------+----------
+CViT2 (Wodajo & Atnafu, CNN+ViT)                       | 0.647    | 0.608     | 0.827  | 0.701 | 0.754 | 1.08         | 150    | 0        
+EfficientNet-B7-NS (selimsef, DFDC Challenge solution) | 0.727    | 0.870     | 0.533  | 0.661 | 0.770 | 2.48         | 150    | 0        
+Naman712/Deep-fake-detection                           | 0.560    | 0.571     | 0.480  | 0.522 | 0.568 | 0.94         | 150    | 0        
+UniversalFakeDetect (CLIP ViT-L/14 + linear probe)     | 0.500    | 0.000     | 0.000  | 0.000 | 0.623 | 5.22         | 150    | 0        
+
+Per-class breakdown [CViT2 (Wodajo & Atnafu, CNN+ViT)]:
+  Class | Support | Accuracy | Precision | Recall | F1   
+  ------+---------+----------+-----------+--------+------
+  Real  | 75      | 0.467    | 0.729     | 0.467  | 0.569
+  Fake  | 75      | 0.827    | 0.608     | 0.827  | 0.701
+
+Per-class breakdown [EfficientNet-B7-NS (selimsef, DFDC Challenge solution)]:
+  Class | Support | Accuracy | Precision | Recall | F1   
+  ------+---------+----------+-----------+--------+------
+  Real  | 75      | 0.920    | 0.663     | 0.920  | 0.771
+  Fake  | 75      | 0.533    | 0.870     | 0.533  | 0.661
+
+Per-class breakdown [Naman712/Deep-fake-detection]:
+  Class | Support | Accuracy | Precision | Recall | F1   
+  ------+---------+----------+-----------+--------+------
+  Real  | 75      | 0.640    | 0.552     | 0.640  | 0.593
+  Fake  | 75      | 0.480    | 0.571     | 0.480  | 0.522
+
+Per-class breakdown [UniversalFakeDetect (CLIP ViT-L/14 + linear probe)]:
+  Class | Support | Accuracy | Precision | Recall | F1   
+  ------+---------+----------+-----------+--------+------
+  Real  | 75      | 1.000    | 0.500     | 1.000  | 0.667
+  Fake  | 75      | 0.000    | 0.000     | 0.000  | 0.000
+
+Confusion matrix [CViT2 (Wodajo & Atnafu, CNN+ViT)] (rows=true, cols=pred):
+  True \ Pred | real | fake
+  ------------+------+-----
+  real        | 35   | 40  
+  fake        | 13   | 62  
+
+Confusion matrix [EfficientNet-B7-NS (selimsef, DFDC Challenge solution)] (rows=true, cols=pred):
+  True \ Pred | real | fake
+  ------------+------+-----
+  real        | 69   | 6   
+  fake        | 35   | 40  
+
+Confusion matrix [Naman712/Deep-fake-detection] (rows=true, cols=pred):
+  True \ Pred | real | fake
+  ------------+------+-----
+  real        | 48   | 27  
+  fake        | 39   | 36  
+
+Confusion matrix [UniversalFakeDetect (CLIP ViT-L/14 + linear probe)] (rows=true, cols=pred):
+  True \ Pred | real | fake
+  ------------+------+-----
+  real        | 75   | 0   
+  fake        | 75   | 0   

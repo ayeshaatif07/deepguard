@@ -1,0 +1,44 @@
+DeepGuard Signal 1b (image) — combined model comparison
+======================================================================
+Models compared : 3
+Images per model: 600
+Images where all models disagree with each other: 17/600
+
+Rank | Model                                 | Accuracy | Macro P | Macro R | Macro F1 | Macro AUC | Avg time (s)
+-----+---------------------------------------+----------+---------+---------+----------+-----------+-------------
+1    | AI-vs-Deepfake-vs-Real-9999 (SigLIP2) | 1.000    | 1.000   | 1.000   | 1.000    | 1.000     | 0.121       
+2    | AI-vs-Deepfake-vs-Real-v2.0 (SigLIP2) | 0.998    | 0.998   | 0.998   | 0.998    | 1.000     | 0.124       
+3    | AI-vs-Deepfake-vs-Real (original ViT) | 0.973    | 0.974   | 0.973   | 0.973    | 0.997     | 0.124       
+
+Per-class breakdown [AI-vs-Deepfake-vs-Real-9999 (SigLIP2)]:
+  Class      | Support | Precision | Recall | F1   
+  -----------+---------+-----------+--------+------
+  Artificial | 200     | 1.000     | 1.000  | 1.000
+  Deepfake   | 200     | 1.000     | 1.000  | 1.000
+  Real       | 200     | 1.000     | 1.000  | 1.000
+  Confusion matrix (rows=true, cols=pred, order=['Artificial', 'Deepfake', 'Real']):
+    [200, 0, 0]
+    [0, 200, 0]
+    [0, 0, 200]
+
+Per-class breakdown [AI-vs-Deepfake-vs-Real (original ViT)]:
+  Class      | Support | Precision | Recall | F1   
+  -----------+---------+-----------+--------+------
+  Artificial | 200     | 0.984     | 0.945  | 0.964
+  Deepfake   | 200     | 0.942     | 0.980  | 0.961
+  Real       | 200     | 0.995     | 0.995  | 0.995
+  Confusion matrix (rows=true, cols=pred, order=['Artificial', 'Deepfake', 'Real']):
+    [189, 11, 0]
+    [3, 196, 1]
+    [0, 1, 199]
+
+Per-class breakdown [AI-vs-Deepfake-vs-Real-v2.0 (SigLIP2)]:
+  Class      | Support | Precision | Recall | F1   
+  -----------+---------+-----------+--------+------
+  Artificial | 200     | 0.995     | 1.000  | 0.998
+  Deepfake   | 200     | 1.000     | 0.995  | 0.997
+  Real       | 200     | 1.000     | 1.000  | 1.000
+  Confusion matrix (rows=true, cols=pred, order=['Artificial', 'Deepfake', 'Real']):
+    [200, 0, 0]
+    [1, 199, 0]
+    [0, 0, 200]

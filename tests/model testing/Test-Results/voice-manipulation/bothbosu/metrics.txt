@@ -1,0 +1,23 @@
+DeepGuard Signal 3 (voice manipulation) model evaluation
+======================================================================
+Model tested : bothbosu (BothBosu/roberta-scam-classifier-v1)
+Dataset CSV  : /Users/ayeshaatif7/Desktop/DEEPFAKE FYP MIDTERM/deepguard/Tests/Datasets/voice-manipulation/signal3_transcripts_final.csv
+Transcripts  : 60
+Device       : mps
+
+Summary:
+Accuracy | Macro P | Macro R | Macro F1 | AUC   | Avg inference | N (skipped)
+---------+---------+---------+----------+-------+---------------+------------
+0.500    | 0.250   | 0.500   | 0.333    | 0.642 | 0.038s        | 60 (0)     
+
+Per-class breakdown:
+Class            | Support | Precision | Recall | F1   
+-----------------+---------+-----------+--------+------
+non-manipulative | 30      | 0.500     | 1.000  | 0.667
+manipulative     | 30      | 0.000     | 0.000  | 0.000
+
+Confusion matrix (rows=true, cols=pred):
+True \ Pred      | non-manipulative | manipulative
+-----------------+------------------+-------------
+non-manipulative | 30               | 0           
+manipulative     | 30               | 0           

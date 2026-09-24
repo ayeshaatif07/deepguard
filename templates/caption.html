@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+
+{% block title %}Caption Check{% endblock %}
+
+{% block content %}
+<style>
+  /* Match the background of the Home, Video, and Voice pages */
+  body {
+    background: url("{{ url_for('static', filename='images/background1.png') }}") center/cover fixed no-repeat;
+    background-color: var(--bg-color); /* fallback */
+  }
+  
+  .caption-overlay {
+    background: rgba(13, 27, 42, 0.75);
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .caption-container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeIn 1.2s ease-out;
+  }
+  
+  .caption-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(42, 179, 142, 0.1);
+  }
+  
+  .caption-header h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #00FFFF, rgb(42, 179, 142));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  
+  .caption-header p {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .caption-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .caption-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .glass-panel:hover {
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+    border-color: rgba(42, 179, 142, 0.3);
+  }
+
+  .glass-panel h3 {
+    color: rgb(42, 179, 142);
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .neon-textarea {
+    width: 100%;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.3s;
+    box-sizing: border-box; /* Fixes padding overflow */
+  }
+
+  .neon-textarea:focus {
+    outline: none;
+    border-color: rgb(42, 179, 142);
+    box-shadow: 0 0 15px rgba(42, 179, 142, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .btn-check {
+    background: linear-gradient(135deg, rgb(42, 179, 142), #0099aa);
+    color: var(--bg-color);
+    border: none;
+    padding: 1rem 3.5rem;
+    border-radius: 9999px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 6px 20px rgba(42, 179, 142, 0.4);
+    display: block;
+    margin: 0 auto 3rem auto;
+  }
+  
+  .btn-check:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(42, 179, 142, 0.6);
+  }
+  
+  .btn-check:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(42, 179, 142, 0.3);
+  }
+
+  .results-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(42, 179, 142, 0.2);
+    border-radius: 16px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .progress-bg {
+    margin-top: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    height: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .progress-fill {
+    width: 65%; /* Example fill, change dynamically via JS */
+    height: 100%;
+    background: linear-gradient(90deg, #00FFFF, rgb(42, 179, 142));
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 0 10px rgba(42, 179, 142, 0.6);
+  }
+
+  .progress-fill::after {
+    content: '0%';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(42, 179, 142, 0.2);
+    border-top: 5px solid rgb(42, 179, 142);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="caption-overlay">
+  <div class="caption-container">
+    <div style="text-align: center;">
+      <div class="caption-header">
+        <h2 style="display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+          <span style="font-size: 2.5rem; -webkit-text-fill-color: initial;"><i class="fa-solid fa-file-pen"></i></span>
+          <span style="background: linear-gradient(45deg, #00FFFF, rgb(42, 179, 142)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Social Media Pipeline</span>
+        </h2>
+        <p>Paste a social media link to run video, voice, and caption analysis automatically.</p>
+      </div>
+    </div>
+
+    <!-- Pipeline step indicator - shown only when arriving via the voice
+         page's "Caption Check" button (see app.js's showPipelineStepBadge) -->
+    <div id="pipelineStepBadge" class="pipeline-step-badge" style="display: none;">
+      <div class="pipeline-step-label" id="pipelineStepLabel">Step 3 of 3 — Caption Coherence Check</div>
+      <div class="pipeline-step-chips" id="pipelineStepChips"></div>
+    </div>
+
+    <!-- URL Input -->
+    <div class="glass-panel" style="margin-bottom: 2.5rem;">
+        <h3><span><i class="fa-solid fa-link"></i></span> Social Media Link</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem;">
+            Supports <strong>YouTube</strong>, <strong>Instagram</strong>, and <strong>Facebook</strong> links.
+        </p>
+        <input type="url" id="socialUrlInput" class="neon-textarea" style="height: auto; padding: 1rem;"
+               placeholder="https://www.youtube.com/watch?v=..." />
+    </div>
+
+    <button id="analyzeBtn" class="btn-check" onclick="handleUrlAnalysis()">Analyze Link</button>
+
+    <!-- Unsupported / Invalid URL Error -->
+    <div id="urlError" style="display: none; background: rgba(255, 71, 87, 0.1); border-left: 4px solid rgb(255, 71, 87); padding: 1.5rem; border-radius: 4px 8px 8px 4px; margin-bottom: 2rem; text-align: left;">
+        <h4 style="margin-top: 0; color: rgb(255, 71, 87); margin-bottom: 0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Analysis Failed</h4>
+        <p id="urlErrorText" style="margin: 0; line-height: 1.7; font-size: 1.05rem;"></p>
+    </div>
+
+    <div id="loader" class="loader-container" style="display: none; background: rgba(0, 0, 0, 0.5); padding: 3rem; border-radius: 16px; margin-bottom: 2rem; backdrop-filter: blur(10px); text-align: center;">
+        <div class="spinner"></div>
+        <h3 id="loaderText" style="color: rgb(42, 179, 142); margin-top: 1rem;">Downloading and analyzing...</h3>
+    </div>
+
+    <!-- Results Area -->
+    <div id="results" class="results-section" style="display: none;">
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+          <p class="text-muted" id="resultTitle" style="margin: 0; font-size: 1.1rem; color: var(--text-main);"></p>
+          <p class="text-muted" id="resultPlatform" style="margin: 0.3rem 0 0 0; font-size: 0.9rem;"></p>
+      </div>
+
+      <!-- The two texts coherence actually compares, side by side, so the
+           comparison itself is visible rather than just its score. -->
+      <div class="caption-grid" style="margin-bottom: 2rem;">
+          <div class="glass-panel">
+              <h3 style="color: rgb(42, 179, 142); margin-bottom: 0.5rem;"><span><i class="fa-solid fa-quote-left"></i></span> What Was Said (Transcript)</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">The audio's own transcript, from Signal 3.</p>
+              <div id="videoTranscript" class="transcript-box">Awaiting analysis...</div>
+          </div>
+          <div class="glass-panel">
+              <h3 style="color: rgb(42, 179, 142); margin-bottom: 0.5rem;"><span><i class="fa-solid fa-file-lines"></i></span> What Was Posted (Caption)</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem;">The post's own caption/description text, pulled automatically from the link.</p>
+              <textarea id="extractedCaption" class="neon-textarea" readonly style="cursor: not-allowed; opacity: 0.85;"></textarea>
+          </div>
+      </div>
+
+      <div class="glass-panel" style="margin-bottom: 0;">
+          <h3 style="color: rgb(42, 179, 142); margin-bottom: 1rem;">Coherence Check (Signal 4)</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: -0.5rem;">Does the caption above actually match what's said in the audio?</p>
+          <div id="coherenceLoading" style="padding: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 8px; border-left: 3px solid rgb(42, 179, 142); color: var(--text-muted);">
+              <i class="fa-solid fa-spinner fa-spin"></i> Scoring coherence...
+          </div>
+          <div id="coherenceVerdictBadge" class="verdict-badge" style="display: none; padding: 0.6rem 1.5rem; font-size: 1.1rem; font-weight: bold; border-radius: 8px; margin-bottom: 1rem;"></div>
+          <div id="coherenceUnavailable" style="display: none; padding: 1rem; background: rgba(255, 165, 0, 0.1); border-radius: 8px; border-left: 3px solid orange; color: #fff;">
+              <i class="fa-solid fa-circle-info"></i>
+              <span id="coherenceUnavailableText"></span>
+          </div>
+
+          <div class="action-btn-row" style="margin-top: 2rem; display: flex; gap: 1rem;">
+              <a href="{{ url_for('verdict') }}" class="btn-action btn-solid" style="width: 100%; text-align: center;">Add to Dashboard</a>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// If arriving via the voice page's "Caption Check" button, dg_caption_state
+// already has everything this page needs (transcript, caption, and
+// whichever video/voice verdicts were computed earlier in the chain) -
+// hydrate directly with the existing showUrlResults() renderer instead of
+// showing the standalone URL-input form. The standalone form/handleUrlAnalysis
+// flow (unchanged) still works for a direct visit to this page.
+document.addEventListener('DOMContentLoaded', () => {
+    // A genuine browser refresh should show a clean page, not re-hydrate
+    // from a previous chain's leftover data - same rule as
+    // restoreStoredState() in app.js.
+    if (isGenuinePageReload()) {
+        sessionStorage.removeItem('dg_caption_state');
+        return;
+    }
+    const stored = sessionStorage.getItem('dg_caption_state');
+    if (!stored) return;
+    try {
+        const data = JSON.parse(stored);
+        document.getElementById('socialUrlInput').closest('.glass-panel').style.display = 'none';
+        document.getElementById('analyzeBtn').style.display = 'none';
+        showUrlResults(data);
+        scoreCoherenceForChainedData(data.transcript, data.caption);
+
+        // Video/audio-track-free clips (data.video_verdict null) mean this
+        // came from the voice page's own standalone URL analysis rather
+        // than the full video-first chain - so it's genuinely a 2-step
+        // flow in that case, not 3, and there's no Video chip to show.
+        const chips = [];
+        if (data.video_verdict) chips.push({ name: 'Video', verdict: data.video_verdict, score: data.video_score });
+        if (data.voice_clone_verdict) chips.push({ name: 'Voice Clone', verdict: data.voice_clone_verdict, score: data.voice_clone_score });
+        if (data.manipulation_verdict) chips.push({ name: 'Manipulation', verdict: data.manipulation_verdict, score: data.manipulation_score });
+        if (chips.length > 0) {
+            const stepLabel = data.video_verdict ? 'Step 3 of 3 — Caption Coherence Check' : 'Step 2 of 2 — Caption Coherence Check';
+            showPipelineStepBadge(stepLabel, chips);
+        }
+    } catch (e) {
+        sessionStorage.removeItem('dg_caption_state');
+    }
+});
+</script>
+{% endblock %}

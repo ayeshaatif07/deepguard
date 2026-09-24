@@ -1,0 +1,23 @@
+DeepGuard Signal 1 (video) model evaluation
+======================================================================
+Model tested : efficientnet
+Dataset CSV  : ../../../../tests/model testing/Datasets/video-detection/video_detection_150_official_sample.csv
+Videos       : 150
+Frames/video : 10
+Device       : mps
+
+Model                                                  | Accuracy | Precision | Recall | F1    | AUC   | Avg Time (s) | N eval | N skipped
+-------------------------------------------------------+----------+-----------+--------+-------+-------+--------------+--------+----------
+EfficientNet-B7-NS (selimsef, DFDC Challenge solution) | 0.727    | 0.870     | 0.533  | 0.661 | 0.770 | 2.48         | 150    | 0        
+
+Per-class breakdown [EfficientNet-B7-NS (selimsef, DFDC Challenge solution)]:
+  Class | Support | Accuracy | Precision | Recall | F1   
+  ------+---------+----------+-----------+--------+------
+  Real  | 75      | 0.920    | 0.663     | 0.920  | 0.771
+  Fake  | 75      | 0.533    | 0.870     | 0.533  | 0.661
+
+Confusion matrix [EfficientNet-B7-NS (selimsef, DFDC Challenge solution)] (rows=true, cols=pred):
+  True \ Pred | real | fake
+  ------------+------+-----
+  real        | 69   | 6   
+  fake        | 35   | 40  

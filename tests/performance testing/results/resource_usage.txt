@@ -1,0 +1,17 @@
+Resource Usage Under Load (CPU / RAM)
+============================================================
+
+Idle baseline (models loaded, no active requests, 5s sample window):
+  CPU avg=0.1%  max=0.3%
+  RSS avg=372 MB  max=409 MB
+
+Under load (4-way concurrent, 16 requests to /analyze_image):
+  CPU avg=62.7%  max=116.0%
+  RSS avg=329 MB  max=491 MB
+
+Notes:
+- CPU% is per-process (psutil), can exceed 100% on multi-core machines
+  when PyTorch parallelises inference across threads.
+- RSS reflects the same process's memory holding all 5 loaded models
+  simultaneously (DeepGuard's actual startup behaviour - see app.py),
+  not just the one signal being exercised by the load requests.

@@ -1,0 +1,612 @@
+:root {
+  --bg-color: #0D1B2A;
+  --panel-bg: #1B263B;
+  --text-main: #E0E1DD;
+  --text-muted: #778DA9;
+  --accent-cyan: #00FFFF;
+  --accent-green: #2ecc71;
+  --accent-amber: #f1c40f;
+  --accent-red: #e74c3c;
+  --border-color: #415A77;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* Header & Nav */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--panel-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Logo image */
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo-img {
+  height: 40px;
+  margin-right: 8px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Logo entrance animation */
+.logo-anim {
+  animation: logoFadeIn 1s ease-out;
+}
+
+@keyframes logoFadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav a:hover, nav a.active {
+  color: rgb(42, 179, 142);
+}
+
+.live-badge {
+  background-color: var(--accent-red);
+  color: white;
+  font-size: 0.6rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Main Layout */
+main {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 {
+  color: var(--text-main);
+  margin-top: 0;
+}
+
+.card {
+  background-color: var(--panel-bg);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2rem;
+}
+
+.card.dummy {
+  border: 1px dashed var(--border-color);
+}
+
+/* Upload Zone */
+.upload-zone {
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 3rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.upload-zone:hover {
+  border-color: var(--accent-cyan);
+  background-color: rgba(0, 255, 255, 0.05);
+}
+
+.upload-zone input[type="file"] {
+  display: none;
+}
+
+/* Pointer button – premium style */
+.pointer-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent-cyan), #0099aa);
+    color: var(--bg-color);
+    padding: 0.75rem 2rem;
+    border-radius: 9999px; /* pill shape */
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,180,216,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 1rem;
+}
+.pointer-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,180,216,0.5);
+}
+.pointer-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px rgba(0,180,216,0.2);
+}
+
+.btn {
+  background-color: var(--accent-cyan);
+  color: var(--bg-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  margin-top: 1rem;
+}
+
+.btn:hover {
+    background-color: #00cccc;
+    transform: scale(1.05);
+    }
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+/* Loader */
+.loader-container {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 255, 255, 0.1);
+  border-left-color: var(--accent-cyan);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Results */
+.results-container {
+  display: none;
+}
+
+.verdict-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.verdict-badge.real { background-color: var(--accent-green); color: #000; }
+.verdict-badge.suspicious { background-color: var(--accent-amber); color: #000; }
+.verdict-badge.deepfake { background-color: var(--accent-red); color: #fff; }
+/* Signal 1b: "Artificial" is a distinct verdict from "Deepfake", so amber rather than red. */
+.verdict-badge.artificial { background-color: var(--accent-amber); color: #000; }
+
+.verdict-badge.coherent { background-color: var(--accent-green); color: #000; }
+.verdict-badge.incoherent { background-color: var(--accent-red); color: #fff; }
+.verdict-badge.likely-cloned { background-color: var(--accent-red); color: #fff; }
+/* Signal 2 voice clone verdict: "Cloned" vs "Real" (reuses .real above). */
+.verdict-badge.cloned { background-color: var(--accent-red); color: #fff; }
+.verdict-badge.authentic { background-color: var(--accent-green); color: #000; }
+.verdict-badge.uncertain { background-color: var(--accent-amber); color: #000; }
+/* Signal 3 manipulation verdict, needed as a real class since it can drive the Overall verdict. */
+.verdict-badge.manipulative { background-color: var(--accent-red); color: #fff; }
+.verdict-badge.non-manipulative { background-color: var(--accent-green); color: #000; }
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Inputs */
+textarea {
+  width: 100%;
+  height: 150px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.split-pane {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.split-pane > div {
+  flex: 1;
+}
+
+/* Metrics Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  color: var(--accent-cyan);
+}
+
+/* Helpers */
+.text-muted { color: var(--text-muted); }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+
+/* Final-submission badge */
+.badge-final {
+  display: inline-block;
+  background: rgba(0, 255, 255, 0.08);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* "Coming in final submission" centred panel */
+.coming-soon-panel {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background: rgba(0, 255, 255, 0.04);
+  border: 1px dashed var(--accent-cyan);
+  border-radius: 8px;
+}
+
+/* Signal card variants */
+.signal-card-live {
+  border: 1px solid var(--accent-cyan);
+}
+
+.signal-card-pending {
+  border: 1px dashed var(--border-color);
+  opacity: 0.85;
+}
+
+/* Outline button */
+.btn-outline {
+  background: transparent;
+  border: none; /* remove outline */
+  border-radius: 9999px; /* fully rounded pill shape */
+  color: rgb(42, 179, 142);
+}
+
+.btn-outline:hover {
+  background: rgba(42, 179, 142, 0.2);
+}
+
+/* Placeholder UI elements */
+.placeholder-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.placeholder-bar-track {
+  width: 100%;
+  height: 10px;
+  background: var(--bg-color);
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.placeholder-bar-fill {
+  height: 100%;
+  background: var(--accent-cyan);
+  border-radius: 5px;
+  opacity: 0.5;
+}
+
+.placeholder-verdict-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.placeholder-chip {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.placeholder-chip.locked {
+  background: rgba(65, 90, 119, 0.2);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+}
+
+.placeholder-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+}
+
+.placeholder-list li {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(65, 90, 119, 0.3);
+}
+
+.placeholder-list li::before {
+  content: '→ ';
+  color: var(--border-color);
+}
+
+/* Signal placeholder card inner */
+.signal-card-placeholder {
+  background: var(--bg-color);
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+}
+
+/* Emotion bars */
+.emotion-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.emotion-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.emotion-row > span:first-child {
+  width: 65px;
+  color: var(--text-muted);
+  text-transform: capitalize;
+  flex-shrink: 0;
+}
+
+.emotion-row > span:last-child {
+  width: 36px;
+  text-align: right;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.emotion-track {
+  flex-grow: 1;
+  height: 8px;
+  background: var(--panel-bg);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.emotion-fill {
+  height: 100%;
+  background: var(--accent-cyan);
+  opacity: 0.4;
+  border-radius: 4px;
+}
+
+.results-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.8s ease-out;
+}
+
+.verdict-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.metrics-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.metric-item {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.metric-item span {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.metric-item strong {
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Shared action-button row (Analyse Another / Audio Check / Caption Check / Add to Dashboard) centralized here so every page (video, voice, image. */
+.action-btn-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-action {
+    background: linear-gradient(135deg, rgb(42, 179, 142), #0099aa);
+    color: var(--bg-color);
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(42, 179, 142, 0.4);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(42, 179, 142, 0.6);
+    color: var(--bg-color);
+}
+
+.btn-action.btn-outline {
+    background: transparent;
+    border: 2px solid rgb(42, 179, 142);
+    color: rgb(42, 179, 142);
+    box-shadow: none;
+    padding: calc(0.75rem - 2px) calc(2rem - 2px);
+}
+
+.btn-action.btn-outline:hover {
+    background: rgba(42, 179, 142, 0.1);
+    box-shadow: none;
+    color: rgb(42, 179, 142);
+}
+
+.btn-action.btn-solid {
+    background: rgb(42, 179, 142);
+    color: #000;
+}
+
+/* Pipeline step indicator (video -> voice -> caption) only shown when a page is reached via a chain click (e.g. "Audio Check"), not on a standalone visit. */
+.pipeline-step-badge {
+    background: rgba(0, 255, 255, 0.06);
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.pipeline-step-label {
+    color: #00FFFF;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.pipeline-step-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.pipeline-step-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.85rem;
+    color: var(--text-main);
+}
+
+.pipeline-step-chip .chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.pipeline-step-chip .chip-dot.chip-red { background: var(--accent-red); }
+.pipeline-step-chip .chip-dot.chip-green { background: var(--accent-green); }
+.pipeline-step-chip .chip-dot.chip-amber { background: var(--accent-amber); }

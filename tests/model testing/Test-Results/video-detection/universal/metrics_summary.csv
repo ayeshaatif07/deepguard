@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,precision,recall,f1,avg_inference_time,auc,auc_note,confusion_matrix,model,real_support,real_accuracy,real_precision,real_recall,real_f1,fake_support,fake_accuracy,fake_precision,fake_recall,fake_f1
+150,0,0.5,0.0,0.0,0.0,5.223237833976746,0.6227555555555555,,"[[75, 0], [75, 0]]",UniversalFakeDetect (CLIP ViT-L/14 + linear probe),75,1.0,0.5,1.0,0.6666666666666666,75,0.0,0.0,0.0,0.0

@@ -1,0 +1,172 @@
+/* home.css – premium hero and feature cards */
+
+/* Tinted overlay wrapping the page content; the background image lives on <body>. */
+.home-overlay {
+  background: rgba(13, 27, 42, 0.75);
+  min-height: calc(100vh - 80px);
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Sized to its content; a fixed 60vh left a large gap before the section below. */
+  padding: 2.5rem 1rem 1.5rem;
+  color: var(--text-main);
+  text-align: center;
+  gap: 0.8rem; /* tighter spacing */
+}
+
+.hero-text {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem 1rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(45deg, var(--accent-cyan), rgb(42, 179, 142));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 1.2s ease-out;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  gap: 0.8rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+  margin-top: auto; /* push cards to bottom */
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 0.5rem;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(42, 179, 142, 0.8);
+}
+
+.glass-card h3 {
+  margin-bottom: 0.5rem;
+  color: rgb(42, 179, 142);
+}
+
+.glass-card p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.feature-icon {
+  font-size: 1.8rem;
+  color: rgb(42, 179, 142);
+  margin-bottom: 0.4rem;
+}
+
+.home-section {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+  text-align: center;
+}
+
+/* No top padding here; the hero's bottom padding already provides the gap. */
+.hero-section + .home-section {
+  padding-top: 0.5rem;
+}
+
+.home-section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+}
+
+.home-section-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.pipeline-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.pipeline-card {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.pipeline-card-steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+}
+
+.pipeline-card-step {
+  background: rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 9999px;
+  padding: 0.25rem 0.8rem;
+  font-weight: 600;
+}
+
+.pipeline-card-steps i {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.pipeline-card h3 {
+  color: rgb(42, 179, 142);
+  margin-bottom: 0.5rem;
+}
+
+.pipeline-card p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+  margin-bottom: 1.2rem;
+}
+
+.home-dashboard-cta {
+  padding-bottom: 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+  .pipeline-cards {
+    grid-template-columns: 1fr;
+  }
+}

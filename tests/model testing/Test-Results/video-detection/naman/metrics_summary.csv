@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,precision,recall,f1,avg_inference_time,auc,auc_note,confusion_matrix,model,real_support,real_accuracy,real_precision,real_recall,real_f1,fake_support,fake_accuracy,fake_precision,fake_recall,fake_f1
+150,0,0.56,0.5714285714285714,0.48,0.5217391304347826,0.9400694052378337,0.5682666666666666,,"[[48, 27], [39, 36]]",Naman712/Deep-fake-detection,75,0.64,0.5517241379310345,0.64,0.5925925925925926,75,0.48,0.5714285714285714,0.48,0.5217391304347826

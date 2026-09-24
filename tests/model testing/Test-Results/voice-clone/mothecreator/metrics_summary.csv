@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,auc,model,real_support,real_precision,real_recall,real_f1,fake_support,fake_precision,fake_recall,fake_f1
+200,0,0.79,0.16015674114227296,0.7918679549114331,0.79,0.7896634615384616,0.8317,mo-thecreator/Deepfake-audio-detection (Wav2Vec2),100,0.8152173913043478,0.75,0.78125,100,0.7685185185185185,0.83,0.7980769230769231

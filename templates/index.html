@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Analyse Video{% endblock %}
+
+{% block content %}
+<style>
+  /* Page background specifically for video page to match home page aesthetic */
+  body {
+    background: url("{{ url_for('static', filename='images/background1.png') }}") center/cover fixed no-repeat;
+    background-color: var(--bg-color); /* fallback */
+  }
+  
+  .video-overlay {
+    background: rgba(13, 27, 42, 0.75);
+    min-height: calc(100vh - 80px); /* adjust based on header */
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .video-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeIn 1.2s ease-out;
+  }
+  
+  .video-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+  }
+  
+  .video-header h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #00FFFF, rgb(42, 179, 142));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  
+  .video-header p {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .upload-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(42, 179, 142, 0.5);
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: block;
+  }
+  
+  .upload-glass:hover {
+    background: rgba(42, 179, 142, 0.08);
+    border-color: rgb(42, 179, 142);
+    box-shadow: 0 8px 32px rgba(42, 179, 142, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .upload-glass .icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  .results-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-top: 2rem;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .results-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+  }
+
+  .results-header h3 {
+    color: rgb(42, 179, 142);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="video-overlay">
+  <div class="video-container">
+    <div style="text-align: center;">
+      <div class="video-header">
+        <h2>Analyse Video</h2>
+        <p>Detect visual manipulation, audio cloning, and deepfakes instantly.</p>
+      </div>
+    </div>
+    
+    <div id="uploadZone">
+      <label for="videoFile" class="upload-glass">
+        <div class="icon" id="uploadIcon">🎬</div>
+        <h3 style="color: rgb(42, 179, 142); margin-bottom: 0.5rem; font-size: 1.8rem;">Upload Video File</h3>
+        <p style="color: var(--text-muted); margin: 0; font-size: 1.1rem;" id="uploadHint">Drag & drop or click to select (.mp4, .avi, .mov)</p>
+        <input type="file" id="videoFile" accept=".mp4,.avi,.mov" style="display:none;" />
+      </label>
+
+      <div style="text-align: center; margin: 1.5rem 0; color: var(--text-muted); font-size: 0.9rem;">— or —</div>
+
+      <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem;">
+        <label for="videoUrlInput" style="display: block; color: var(--text-main); font-weight: 600; margin-bottom: 0.75rem;">Paste a social media link</label>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <input type="url" id="videoUrlInput" placeholder="https://www.youtube.com/watch?v=..." style="flex: 1; min-width: 220px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.75rem 1rem; color: var(--text-main); font-family: inherit; font-size: 1rem;" />
+          <button class="btn-action" onclick="handleVideoUrlAnalysis()" style="padding: 0.75rem 1.5rem;">Analyze Link</button>
+        </div>
+        <p id="videoUrlError" style="display:none; color: rgb(255, 71, 87); margin: 0.75rem 0 0; font-size: 0.9rem;"></p>
+      </div>
+    </div>
+
+    <div id="loader" class="loader-container" style="background: rgba(0, 0, 0, 0.5); padding: 3rem; border-radius: 16px; margin-top: 2rem; backdrop-filter: blur(10px);">
+        <div class="spinner"></div>
+        <h3 id="loaderText" style="color: rgb(42, 179, 142); margin-top: 1rem;">Extracting frames...</h3>
+    </div>
+
+    <div id="results" class="results-glass" style="display: none;">
+        <div class="results-header">
+            <h3>Analysis Results</h3>
+            <p class="text-muted" id="resultFilename" style="margin: 0; font-size: 0.95rem;"></p>
+        </div>
+        
+        <div style="margin-bottom: 2rem;">
+            <div id="verdictBadge" class="verdict-badge"></div>
+        </div>
+
+        <div class="metrics-box">
+            <div class="metric-item">
+                <span>Deepfake Probability</span>
+                <strong id="confidenceScore" style="color: rgb(42, 179, 142);"></strong>
+            </div>
+            <div class="metric-item">
+                <span>Inference Time</span>
+                <strong id="inferenceTime"></strong>
+            </div>
+        </div>
+
+        <div style="background: rgba(42, 179, 142, 0.1); border-left: 4px solid rgb(42, 179, 142); padding: 1.5rem; border-radius: 4px 8px 8px 4px; margin-bottom: 2.5rem;">
+            <h4 style="margin-top: 0; color: rgb(42, 179, 142); margin-bottom: 0.5rem;">Explanation</h4>
+            <p id="explanationText" style="margin: 0; line-height: 1.7; font-size: 1.05rem;"></p>
+        </div>
+
+        <h4 id="frameAnalysisHeading" style="margin-bottom: 1rem; color: var(--text-main);">Per-Frame Analysis</h4>
+        <div class="chart-container" style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 12px; margin-bottom: 2.5rem; border: 1px solid rgba(255,255,255,0.05);">
+            <canvas id="scoreChart"></canvas>
+        </div>
+
+        <div class="action-btn-row">
+            <button class="btn-action btn-outline" onclick="resetUpload()">Analyse Another</button>
+            <a href="#" onclick="proceedToVoicePipeline(event)" class="btn-action btn-outline">Audio Check</a>
+            <a href="{{ url_for('verdict') }}" class="btn-action btn-solid">Add to Dashboard</a>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

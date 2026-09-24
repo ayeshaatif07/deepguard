@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,macro_auc_ovr,model,artificial_support,artificial_precision,artificial_recall,artificial_f1,deepfake_support,deepfake_precision,deepfake_recall,deepfake_f1,real_support,real_precision,real_recall,real_f1
+600,0,1.0,0.12141957044601441,1.0,1.0,1.0,1.0,AI-vs-Deepfake-vs-Real-9999 (SigLIP2),200,1.0,1.0,1.0,200,1.0,1.0,1.0,200,1.0,1.0,1.0

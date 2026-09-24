@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,wer,cer,avg_inference_time,model
+500,0,0.0794679780932156,0.035682733952466114,3.3346198410987853,openai/whisper-small

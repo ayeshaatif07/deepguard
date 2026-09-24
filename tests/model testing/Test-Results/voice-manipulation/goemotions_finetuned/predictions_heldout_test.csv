@@ -1,0 +1,21 @@
+transcript,y_true,y_pred_finetuned,prob_manipulative_finetuned,y_pred_heuristic,score_heuristic
+You have been selected for an exclusive reward. Act today. This cannot be offered again after tonight.,manipulative,manipulative,0.9934701919555664,non-manipulative,0.009695565939182416
+Your computer has a critical virus stealing your passwords. Do not turn it off. Call us right now.,manipulative,manipulative,0.9954818487167358,manipulative,0.1110884592635557
+We are calling to remind you about your car service booked for Friday morning.,non-manipulative,non-manipulative,0.006359423045068979,manipulative,0.02008001206559129
+Your refund has been processed and should appear in your account within five working days.,non-manipulative,non-manipulative,0.17452353239059448,non-manipulative,0.009972846106393263
+The position is yours but you must pay the registration fee today. It is fully refundable. Act fast.,manipulative,manipulative,0.9949803948402405,non-manipulative,0.01543223939370364
+Temperatures will drop this evening. A light jacket is recommended if you are heading out.,non-manipulative,non-manipulative,0.05059942975640297,non-manipulative,0.016116667015012354
+Children are dying right now. Every second you wait costs a life. Please donate immediately.,manipulative,manipulative,0.9901188611984253,manipulative,0.048685838002711535
+This is a final notice. Failure to respond will result in court proceedings filed against you tomorrow.,manipulative,manipulative,0.9949535727500916,manipulative,0.12881690834183246
+The school will be closed on Friday for a training day. Normal lessons resume on Monday.,non-manipulative,non-manipulative,0.005459940060973167,non-manipulative,0.009016228490509093
+Your meter reading has been recorded. Your next bill will reflect the updated usage.,non-manipulative,non-manipulative,0.09505561739206314,non-manipulative,0.01153342123143375
+I wanted to let you know the book club meeting has been moved to next Tuesday at 7 PM.,non-manipulative,non-manipulative,0.06809453666210175,non-manipulative,0.015809811069630086
+Your order has been dispatched and will arrive within three to five working days.,non-manipulative,non-manipulative,0.005953577812761068,non-manipulative,0.007498229679185897
+Your account has been frozen. Call us back immediately or you will lose all your funds today.,manipulative,manipulative,0.9960517287254333,manipulative,0.09912529913708568
+This is a reminder to take your medication this evening with food as advised by your doctor.,non-manipulative,manipulative,0.8717957735061646,manipulative,0.021851973433513194
+Your health cover expires at midnight. You will have no protection tomorrow unless you renew today.,manipulative,manipulative,0.9955831170082092,manipulative,0.039657411398366094
+Your invoice has been paid. A receipt has been sent to your registered email address.,non-manipulative,non-manipulative,0.46092408895492554,non-manipulative,0.008952712552854791
+A county court judgment has been filed against you. Call us now to avoid your credit being destroyed.,manipulative,manipulative,0.9960177540779114,manipulative,0.20609904313459992
+Your loan application has been approved but expires in one hour. Call now to secure your funds.,manipulative,manipulative,0.995918333530426,non-manipulative,0.01156004355289042
+We have flagged unusual transactions on your account. Do not use your card until you speak to us.,manipulative,manipulative,0.9962679743766785,manipulative,0.1328077457146719
+Your monthly statement is now available to view in your online banking app.,non-manipulative,non-manipulative,0.006824332755059004,non-manipulative,0.008916674763895571

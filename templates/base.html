@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepGuard - {% block title %}{% endblock %}</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Chart.js and Annotation Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="DeepGuard Logo" class="logo-img">DeepGuard</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}" class="{% if active_page == 'home' %}active{% endif %}"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="{{ url_for('video') }}" class="{% if active_page == 'video' %}active{% endif %}"><i class="fa-solid fa-video"></i> Analyse Video</a></li>
+                <li><a href="{{ url_for('image') }}" class="{% if active_page == 'image' %}active{% endif %}"><i class="fa-solid fa-image"></i> Image Detection</a></li>
+                <li><a href="{{ url_for('voice') }}" class="{% if active_page == 'voice' %}active{% endif %}"><i class="fa-solid fa-microphone-lines"></i> Voice Analysis</a></li>
+                <li><a href="{{ url_for('caption') }}" class="{% if active_page == 'caption' %}active{% endif %}"><i class="fa-solid fa-file-pen"></i> Caption Check</a></li>
+                <li><a href="{{ url_for('verdict') }}" class="{% if active_page == 'verdict' %}active{% endif %}"><i class="fa-solid fa-chart-column"></i> Full Verdict</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page container for slide transitions -->
+    <div id="page-container" class="view-slide">
+        {% block content %}{% endblock %}
+    </div>
+
+
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

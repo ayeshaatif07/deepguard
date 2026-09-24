@@ -1,0 +1,18 @@
+Concurrent Load Test
+============================================================
+
+Endpoint: POST /analyze_image
+
+Concurrency=1                            mean=0.144s  median=0.055s  p95=0.766s  min=0.055s  max=0.766s  (n=8)  errors=0/8
+Concurrency=2                            mean=0.099s  median=0.100s  p95=0.104s  min=0.092s  max=0.104s  (n=8)  errors=0/8
+Concurrency=4                            mean=0.195s  median=0.196s  p95=0.199s  min=0.190s  max=0.199s  (n=8)  errors=0/8
+Concurrency=8                            mean=0.390s  median=0.393s  p95=0.399s  min=0.363s  max=0.399s  (n=8)  errors=0/8
+
+Notes:
+- Requests fired via Python's `requests` library against a live server
+  (Flask dev server, threaded=True), not the Flask test client, so real
+  socket-level concurrency and Python's GIL-bound inference cost are
+  both reflected in the numbers.
+- DeepGuard is designed as a single-user local tool (Section 1.0); this
+  test characterises degradation under unexpected simultaneous use, it
+  is not evidence toward a multi-user production capacity claim.

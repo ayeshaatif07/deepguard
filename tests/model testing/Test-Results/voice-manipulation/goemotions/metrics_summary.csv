@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,auc,model,non_manipulative_support,non_manipulative_precision,non_manipulative_recall,non_manipulative_f1,manipulative_support,manipulative_precision,manipulative_recall,manipulative_f1
+60,0,0.5333333333333333,0.03660441239674886,0.7586206896551724,0.5333333333333333,0.4034090909090909,0.9355555555555556,SamLowe/roberta-base-go_emotions (derived manipulation score),30,0.5172413793103449,1.0,0.6818181818181818,30,1.0,0.06666666666666667,0.125

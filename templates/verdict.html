@@ -1,0 +1,417 @@
+{% extends "base.html" %}
+
+{% block title %}Full Verdict{% endblock %}
+
+{% block content %}
+<style>
+  /* Match the background of the other pages */
+  body {
+    background: url("{{ url_for('static', filename='images/background1.png') }}") center/cover fixed no-repeat;
+    background-color: var(--bg-color); /* fallback */
+  }
+  
+  .verdict-overlay {
+    background: rgba(13, 27, 42, 0.75);
+    min-height: calc(100vh - 80px);
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* helps center content if it's small enough */
+  }
+
+  .verdict-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeIn 1.2s ease-out;
+  }
+  
+  .verdict-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(42, 179, 142, 0.1);
+  }
+  
+  .verdict-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  
+  .verdict-header p {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .overall-dashboard {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(42, 179, 142, 0.4);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 40px rgba(42, 179, 142, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .overall-dashboard::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(42,179,142,0.1) 0%, rgba(0,0,0,0) 70%);
+    animation: rotate 15s linear infinite;
+    pointer-events: none;
+  }
+
+  .overall-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.3rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+
+  .overall-confidence {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+  }
+
+  .confidence-highlight {
+    color: rgb(42, 179, 142);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-left: 8px;
+    text-shadow: 0 0 15px rgba(42, 179, 142, 0.6);
+  }
+
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  @media (max-width: 1024px) {
+    .signal-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  
+  @media (max-width: 768px) {
+    .signal-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  @media (max-width: 600px) {
+    .signal-grid { grid-template-columns: 1fr; }
+  }
+
+  .signal-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .signal-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    border-color: rgba(42, 179, 142, 0.3);
+  }
+
+  .signal-card h4 {
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .signal-icon {
+    font-size: 1.6rem;
+    margin-bottom: 0.2rem;
+    -webkit-text-fill-color: initial;
+  }
+
+  .signal-score {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #fff, var(--text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .signal-status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .usage-section {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .usage-section h3 {
+    color: var(--text-main);
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .usage-section-subtitle {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .usage-table-wrap {
+    overflow-x: auto;
+  }
+
+  .usage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .usage-table th {
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .usage-table td {
+    padding: 0.7rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    color: var(--text-main);
+  }
+
+  .usage-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .usage-label-chip {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.78rem;
+    margin: 0.15rem 0.3rem 0.15rem 0;
+    white-space: nowrap;
+  }
+</style>
+
+<div class="verdict-overlay">
+  <div class="verdict-container">
+    <div style="text-align: center;">
+      <div class="verdict-header">
+        <h2>
+          <span style="font-size: 2rem; -webkit-text-fill-color: initial;"><i class="fa-solid fa-chart-column"></i></span>
+          <span style="background: linear-gradient(45deg, #00FFFF, rgb(42, 179, 142)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Fusion Verdict Dashboard</span>
+        </h2>
+        <p>Combined analysis from all five DeepGuard signals using multi-modal fusion.</p>
+      </div>
+    </div>
+
+    <!-- Main Overall Verdict -->
+    {% if signal1 or signal1b or signal2 or signal4 %}
+    {# Each entry is (rank_key, verdict, display_score) - rank_key is what
+       "worst" sorts by (uniformly: higher rank_key = more concerning),
+       display_score is what's actually shown to the user. For
+       signal1/1b/2, a higher score IS more concerning, so rank_key equals
+       display_score. Coherence is the one signal here where that's
+       inverted - a HIGH coherence score means SAFER (more coherent), not
+       more suspicious - so its rank_key is (100 - score): a low
+       coherence score (concerning/Incoherent) ranks as HIGH concern,
+       matching every other signal's polarity, while display_score keeps
+       showing the real coherence percentage, not the inverted one. #}
+    {% set scores = [] %}
+    {% if signal1 %}{% set _ = scores.append((signal1.score, signal1.verdict, signal1.score)) %}{% endif %}
+    {% if signal1b %}{% set _ = scores.append((signal1b.score, signal1b.verdict, signal1b.score)) %}{% endif %}
+    {% if signal2 %}{% set _ = scores.append((signal2.score, signal2.verdict, signal2.score)) %}{% endif %}
+    {# Manipulation (Signal 3) is bundled inside signal2's dict
+       (manipulation_verdict/manipulation_score, alongside the voice-clone
+       verdict/score) since both come from one /analyze_voice call - but it's
+       a genuinely separate finding with its own card, so it needs its own
+       entry here too, or a high-manipulation-score clip could get a
+       falsely-safe Overall verdict just because its voice-clone score
+       happened to be lower. #}
+    {% if signal2 and signal2.manipulation_verdict %}{% set _ = scores.append((signal2.manipulation_score, signal2.manipulation_verdict, signal2.manipulation_score)) %}{% endif %}
+    {% if signal4 %}{% set _ = scores.append((100 - signal4.score, signal4.verdict, signal4.score)) %}{% endif %}
+    {% set worst = scores | sort(attribute='0', reverse=True) | first %}
+    <div class="overall-dashboard">
+        <div class="overall-title verdict-badge {{ worst[1].lower() }}" id="dashOverallVerdict">Overall: {{ worst[1] }}</div>
+        <div class="overall-confidence">
+            Confidence: <span class="confidence-highlight" id="dashOverallScore">{{ worst[2] }}%</span>
+        </div>
+        <div style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
+            Based on {{ scores | length }} active signal{{ 's' if scores | length != 1 else '' }} — full weighted fusion across all 5 signals not yet implemented.
+        </div>
+    </div>
+    {% else %}
+    <div class="overall-dashboard">
+        <div class="overall-title verdict-badge" id="dashOverallVerdict">Overall: No signals run yet</div>
+        <div class="overall-confidence">
+            Run <a href="{{ url_for('video') }}" style="color: rgb(42, 179, 142);">Analyse Video</a> or
+            <a href="{{ url_for('image') }}" style="color: rgb(42, 179, 142);">Image Detection</a> to populate this dashboard.
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Individual Signals Grid -->
+    <div class="signal-grid">
+        <!-- Signal 1 - real data from session -->
+        <div class="signal-card">
+            <h4><span class="signal-icon"><i class="fa-solid fa-video"></i></span> Video Face</h4>
+            {% if signal1 %}
+            <div class="signal-score verdict-badge {{ signal1.verdict.lower() }}" id="dashSig1Score">{{ signal1.score }}%</div>
+            <div class="signal-status" id="dashSig1Status">{{ signal1.verdict }}</div>
+            {% else %}
+            <div class="signal-score verdict-badge" id="dashSig1Score">0%</div>
+            <div class="signal-status" id="dashSig1Status">Not run yet</div>
+            {% endif %}
+        </div>
+
+        <!-- Signal 1b - real data from session -->
+        <div class="signal-card">
+            <h4><span class="signal-icon"><i class="fa-solid fa-image"></i></span> Image Check</h4>
+            {% if signal1b %}
+            <div class="signal-score verdict-badge {{ signal1b.verdict.lower() }}" id="dashSig2Score">{{ signal1b.score }}%</div>
+            <div class="signal-status" id="dashSig2Status">{{ signal1b.verdict }}</div>
+            {% else %}
+            <div class="signal-score verdict-badge" id="dashSig2Score">0%</div>
+            <div class="signal-status" id="dashSig2Status">Not run yet</div>
+            {% endif %}
+        </div>
+
+        <!-- Signal 2 - real data from session -->
+        <div class="signal-card">
+            <h4><span class="signal-icon"><i class="fa-solid fa-user-tie"></i></span> Voice Clone</h4>
+            {% if signal2 %}
+            <div class="signal-score verdict-badge {{ signal2.verdict.lower() }}" id="dashSig3Score">{{ signal2.score }}%</div>
+            <div class="signal-status" id="dashSig3Status">{{ signal2.verdict }}</div>
+            {% else %}
+            <div class="signal-score verdict-badge" id="dashSig3Score">0%</div>
+            <div class="signal-status" id="dashSig3Status">Not run yet</div>
+            {% endif %}
+        </div>
+
+        <!-- Signal 3 - real data from session (shares the /voice upload with Signal 2) -->
+        <div class="signal-card">
+            <h4><span class="signal-icon"><i class="fa-solid fa-headphones"></i></span> Manipulation</h4>
+            {% if signal2 %}
+            <div class="signal-score verdict-badge {{ 'deepfake' if signal2.manipulation_verdict == 'Manipulative' else 'real' }}" id="dashSig4Score">{{ signal2.manipulation_score }}%</div>
+            <div class="signal-status" id="dashSig4Status">{{ signal2.manipulation_verdict }}</div>
+            {% else %}
+            <div class="signal-score verdict-badge" id="dashSig4Score">0%</div>
+            <div class="signal-status" id="dashSig4Status">Not run yet</div>
+            {% endif %}
+        </div>
+
+        <!-- Signal 4 - real data from session (URL-based flows only - see coherence_scorer.py) -->
+        <div class="signal-card">
+            <h4><span class="signal-icon"><i class="fa-solid fa-file-pen"></i></span> Coherence</h4>
+            {% if signal4 %}
+            <div class="signal-score verdict-badge {{ signal4.verdict.lower() }}" id="dashSig5Score">{{ signal4.score }}%</div>
+            <div class="signal-status" id="dashSig5Status">{{ signal4.verdict }}</div>
+            {% else %}
+            <div class="signal-score verdict-badge" id="dashSig5Score">--</div>
+            <div class="signal-status" id="dashSig5Status">Not run yet</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Usage statistics: a persistent log, independent of the session state above. -->
+    {% if usage_stats %}
+    <div class="usage-section">
+        <h3><i class="fa-solid fa-database"></i> Usage Statistics</h3>
+        <p class="usage-section-subtitle">Every analysis ever run on this app, grouped by feature.</p>
+        <div class="usage-table-wrap">
+            <table class="usage-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Times Used</th>
+                        <th>Verdict Breakdown</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in usage_stats %}
+                    <tr>
+                        <td>{{ row.feature }}</td>
+                        <td>{{ row.total }}</td>
+                        <td>
+                            {% if row.labels %}
+                                {% for label, count in row.labels.items() %}
+                                <span class="usage-label-chip">{{ label }}: {{ count }}</span>
+                                {% endfor %}
+                            {% else %}
+                            <span style="color: var(--text-muted);">Not used yet</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="action-btn-row">
+        {% if signal1 or signal1b or signal2 or signal4 %}
+        <a href="{{ url_for('download_report') }}" class="btn-action btn-solid"><i class="fa-solid fa-file-arrow-down"></i> Download Report</a>
+        {% else %}
+        <span class="btn-action btn-solid" style="opacity: 0.4; cursor: not-allowed; pointer-events: none;" title="Test at least one signal first"><i class="fa-solid fa-file-arrow-down"></i> Download Report</span>
+        {% endif %}
+        <a href="#" onclick="resetDashboard(event)" class="btn-action btn-outline">Analyse Another</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

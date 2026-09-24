@@ -1,0 +1,23 @@
+DeepGuard Signal 2 (voice clone) model evaluation
+======================================================================
+Model tested : melodymachine (MelodyMachine/Deepfake-audio-detection-V2 (Wav2Vec2))
+Dataset CSV  : ../../Datasets/voice-clone/voice_clone_200_sample.csv
+Audio clips  : 200
+Device       : mps
+
+Summary:
+Accuracy | Macro P | Macro R | Macro F1 | AUC   | Avg inference | N (skipped)
+---------+---------+---------+----------+-------+---------------+------------
+0.490    | 0.469   | 0.490   | 0.387    | 0.537 | 0.368s        | 200 (0)    
+
+Per-class breakdown:
+Class | Support | Precision | Recall | F1   
+------+---------+-----------+--------+------
+real  | 100     | 0.495     | 0.900  | 0.638
+fake  | 100     | 0.444     | 0.080  | 0.136
+
+Confusion matrix (rows=true, cols=pred):
+True \ Pred | real | fake
+------------+------+-----
+real        | 90   | 10  
+fake        | 92   | 8   

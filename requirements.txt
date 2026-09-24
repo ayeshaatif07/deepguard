@@ -1,0 +1,38 @@
+# All Python dependencies for DeepGuard.
+# Install with:  pip install -r requirements.txt
+
+# --- Runtime: the application itself (app.py + modules/) ---
+torch
+torchvision
+transformers
+opencv-python-headless
+Pillow
+numpy
+Flask
+scikit-learn
+Werkzeug
+einops
+huggingface_hub
+soundfile
+librosa
+sentence-transformers
+reportlab
+yt-dlp
+
+# --- Testing and evaluation: the suites under tests/ ---
+# Not needed to run the application, only to reproduce the benchmarks.
+pytest              # unit + functionality suites
+requests            # performance testing: live-server load and resource tests
+psutil              # performance testing: CPU / RSS sampling
+matplotlib          # benchmark charts (model testing + performance testing)
+pandas              # dataset preparation and results tables
+jiwer               # speech transcription WER / CER scoring
+datasets            # LibriSpeech download (audio transcription)
+pyarrow             # image dataset preparation
+timm                # EfficientNet-B7-NS candidate (video detection benchmark)
+
+# --- Not installable via pip ---
+# Voice analysis (Signals 2 and 3) needs the ffmpeg system binary on PATH,
+# e.g. `brew install ffmpeg`, to decode uploads to 16kHz mono WAV.
+# The UniversalFakeDetect benchmark candidate needs OpenAI CLIP:
+#     pip install git+https://github.com/openai/CLIP.git

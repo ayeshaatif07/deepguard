@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,precision,recall,f1,avg_inference_time,auc,auc_note,confusion_matrix,model,real_support,real_accuracy,real_precision,real_recall,real_f1,fake_support,fake_accuracy,fake_precision,fake_recall,fake_f1
+150,0,0.6466666666666666,0.6078431372549019,0.8266666666666667,0.7005649717514124,1.0762418508529663,0.754488888888889,,"[[35, 40], [13, 62]]","CViT2 (Wodajo & Atnafu, CNN+ViT)",75,0.4666666666666667,0.7291666666666666,0.4666666666666667,0.5691056910569106,75,0.8266666666666667,0.6078431372549019,0.8266666666666667,0.7005649717514124

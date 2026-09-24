@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,macro_auc_ovr,model,artificial_support,artificial_precision,artificial_recall,artificial_f1,deepfake_support,deepfake_precision,deepfake_recall,deepfake_f1,real_support,real_precision,real_recall,real_f1
+600,0,0.9733333333333334,0.124090975522995,0.9738942307692308,0.9733333333333333,0.9733566760037348,0.9969208333333334,AI-vs-Deepfake-vs-Real (original ViT),200,0.984375,0.945,0.9642857142857143,200,0.9423076923076923,0.98,0.9607843137254902,200,0.995,0.995,0.995

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}DeepGuard{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<style>
+  /* Full-bleed body background with a tinted overlay, matching the other pages. */
+  body {
+    background: url("{{ url_for('static', filename='images/background1.png') }}") center/cover fixed no-repeat;
+    background-color: var(--bg-color);
+  }
+</style>
+
+<div class="home-overlay">
+  <div class="hero-section">
+    <div class="hero-text">
+      <h1>DeepGuard</h1>
+      <p>Detect deep‑fake videos, images, cloned voices, manipulative scripts, and mismatched captions — 5 signals, checked individually or all at once.</p>
+    </div>
+  </div>
+
+  <section class="home-section">
+    <h2 class="home-section-title">Check one thing at a time</h2>
+    <p class="home-section-subtitle">Upload a file or paste a link. Each page runs on its own — no pipeline required.</p>
+    <div class="features-grid">
+      <div class="glass-card">
+        <div class="feature-icon"><i class="fa-solid fa-video"></i></div>
+        <h3>Video Check</h3>
+        <p>Detect visual manipulation and deepfakes across video frames.</p>
+        <a href="{{ url_for('video') }}" class="btn-action btn-solid">Start</a>
+      </div>
+      <div class="glass-card">
+        <div class="feature-icon"><i class="fa-solid fa-image"></i></div>
+        <h3>Image Check</h3>
+        <p>Analyze static images for AI-generated or tampered content.</p>
+        <a href="{{ url_for('image') }}" class="btn-action btn-solid">Start</a>
+      </div>
+      <div class="glass-card">
+        <div class="feature-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+        <h3>Voice Check</h3>
+        <p>Identify cloned speech and score manipulative, coercive language.</p>
+        <a href="{{ url_for('voice') }}" class="btn-action btn-solid">Start</a>
+      </div>
+      <div class="glass-card">
+        <div class="feature-icon"><i class="fa-solid fa-file-pen"></i></div>
+        <h3>Caption Check</h3>
+        <p>Verify a post's caption actually matches what's said in the audio.</p>
+        <a href="{{ url_for('caption') }}" class="btn-action btn-solid">Start</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section">
+    <h2 class="home-section-title">Or run the full pipeline</h2>
+    <p class="home-section-subtitle">Both start on the Video page — each step carries your result to the next automatically.</p>
+    <div class="pipeline-cards">
+      <div class="glass-card pipeline-card">
+        <div class="pipeline-card-steps">
+          <span class="pipeline-card-step">Video</span>
+          <i class="fa-solid fa-arrow-right"></i>
+          <span class="pipeline-card-step">Audio</span>
+          <i class="fa-solid fa-arrow-right"></i>
+          <span class="pipeline-card-step">Dashboard</span>
+        </div>
+        <h3>Video → Audio Pipeline</h3>
+        <p>Check a video, then continue straight into its voice-clone and manipulation analysis, all the way to the dashboard — fully automatic, no clicks needed in between.</p>
+        <a href="{{ url_for('video') }}?pipeline=1" class="btn-action btn-solid">Start</a>
+      </div>
+      <div class="glass-card pipeline-card">
+        <div class="pipeline-card-steps">
+          <span class="pipeline-card-step">Video</span>
+          <i class="fa-solid fa-arrow-right"></i>
+          <span class="pipeline-card-step">Voice</span>
+          <i class="fa-solid fa-arrow-right"></i>
+          <span class="pipeline-card-step">Caption</span>
+          <i class="fa-solid fa-arrow-right"></i>
+          <span class="pipeline-card-step">Dashboard</span>
+        </div>
+        <h3>Social Media Pipeline</h3>
+        <p>Paste one social media link and every signal — video, voice, manipulation, and caption coherence — runs end to end automatically, all the way to the dashboard.</p>
+        <a href="{{ url_for('video') }}?pipeline=2" class="btn-action btn-solid">Start</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-dashboard-cta">
+    <h2 class="home-section-title">See it all together</h2>
+    <p class="home-section-subtitle">Every check you run — standalone or via a pipeline — feeds into one combined verdict.</p>
+    <a href="{{ url_for('verdict') }}" class="btn-action btn-solid">View Full Verdict Dashboard</a>
+  </section>
+</div>
+{% endblock %}

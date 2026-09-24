@@ -1,0 +1,2 @@
+n_evaluated,accuracy,auc,macro_precision,macro_recall,macro_f1,model
+130,0.9384615384615385,0.98525,0.9307432432432432,0.94625,0.9362901249693703,ast_asvspoof_finetuned

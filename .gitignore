@@ -1,0 +1,39 @@
+# Social media session cookies (throwaway accounts - see the relevant
+# extractor's docstring for why this is safe to keep in-project). Still
+# gitignored as general hygiene.
+modules/social_media/instagram_cookies.txt
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.pytest_cache/
+
+# Frontend unit test dependencies (npm install, not source)
+tests/unit testing/frontend/node_modules/
+
+# Uploads (transient, recreated automatically)
+uploads/
+
+# Per-feature usage log (local runtime data, not source)
+usage_log.db
+
+# macOS
+.DS_Store
+
+# Model weights - each exceeds GitHub's 100 MB file limit.
+# Pretrained weights are downloaded by setup; fine-tuned weights are produced
+# by the training scripts under tests/model testing/.
+*.pth
+*.pt
+*.safetensors
+*.bin
+*.ckpt
+*.onnx
+
+# Evaluation datasets - obtained under their own licences and not redistributable
+# (FaceForensics++ via TUM research access, LibriSpeech, etc.)
+tests/model testing/Datasets/
+
+# ...but keep the 4 KB UniversalFakeDetect classifier head (not a large weight file)
+!tests/model testing/testing/video-detection/weights/universal/fc_weights.pth

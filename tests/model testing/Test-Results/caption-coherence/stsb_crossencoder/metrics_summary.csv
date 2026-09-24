@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,auc,model,Incoherent_support,Incoherent_precision,Incoherent_recall,Incoherent_f1,Coherent_support,Coherent_precision,Coherent_recall,Coherent_f1
+28,0,0.6428571428571429,0.09125616720744542,0.7916666666666667,0.6428571428571428,0.5906432748538011,0.673469387755102,cross-encoder/stsb-roberta-base,14,0.5833333333333334,1.0,0.7368421052631579,14,1.0,0.2857142857142857,0.4444444444444444

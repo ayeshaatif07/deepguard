@@ -1,0 +1,23 @@
+DeepGuard Signal 2 (voice clone) model evaluation
+======================================================================
+Model tested : mothecreator (mo-thecreator/Deepfake-audio-detection (Wav2Vec2))
+Dataset CSV  : ../../Datasets/voice-clone/voice_clone_200_sample.csv
+Audio clips  : 200
+Device       : mps
+
+Summary:
+Accuracy | Macro P | Macro R | Macro F1 | AUC   | Avg inference | N (skipped)
+---------+---------+---------+----------+-------+---------------+------------
+0.790    | 0.792   | 0.790   | 0.790    | 0.832 | 0.160s        | 200 (0)    
+
+Per-class breakdown:
+Class | Support | Precision | Recall | F1   
+------+---------+-----------+--------+------
+real  | 100     | 0.815     | 0.750  | 0.781
+fake  | 100     | 0.769     | 0.830  | 0.798
+
+Confusion matrix (rows=true, cols=pred):
+True \ Pred | real | fake
+------------+------+-----
+real        | 75   | 25  
+fake        | 17   | 83  

@@ -1,0 +1,21 @@
+Per-Model Latency Benchmark
+============================================================
+
+Model load time (one-time, per app startup):
+  Signal 1 (CViT2)                           1.85s
+  Signal 1b (prithivMLmods ViT)              2.06s
+  Signal 2 (fine-tuned AST)                  0.61s
+  Signal 3 (Whisper + fine-tuned RoBERTa)    7.84s
+  Signal 4 (all-MiniLM-L6-v2)                7.09s
+
+Signal 1 - Video Deepfake (CViT2)        mean=0.374s  median=0.376s  p95=0.380s  min=0.365s  max=0.380s  (n=5)
+Signal 1b - Image Detection (prithivMLmods) mean=0.046s  median=0.045s  p95=0.047s  min=0.045s  max=0.047s  (n=5)
+Signal 2 - Voice Clone (fine-tuned AST)  mean=0.384s  median=0.381s  p95=0.399s  min=0.374s  max=0.399s  (n=5)
+Signal 3 - Voice Manipulation (Whisper+RoBERTa) mean=3.828s  median=3.883s  p95=4.015s  min=3.448s  max=4.015s  (n=5)
+Signal 4 - Caption Coherence (all-MiniLM-L6-v2) mean=0.010s  median=0.010s  p95=0.010s  min=0.010s  max=0.010s  (n=5)
+
+Notes:
+- Signal 1 excludes frame extraction (ffmpeg decode), timed separately in pipeline_latency.py.
+- Signal 3's time includes its own Whisper-small transcription step (shared ASR + classification).
+- Signal 4's time is embedding + cosine similarity only, given an already-produced transcript.
+- All runs on arm64, 5 timed repetitions after 1 discarded warmup run.

@@ -1,0 +1,12 @@
+DeepGuard speech-to-text (ASR) model evaluation
+======================================================================
+Model tested : wav2vec2 (facebook/wav2vec2-large-960h-lv60-self)
+Dataset CSV  : /Users/ayeshaatif7/Desktop/DEEPFAKE FYP MIDTERM/deepguard/Tests/Datasets/librispeech-test-other/librispeech_transcripts.csv
+Clips        : 500
+Device       : mps
+
+WER   | CER   | Avg inference | N (skipped)
+------+-------+---------------+------------
+0.042 | 0.014 | 1.338s        | 500 (0)    
+
+(lower WER/CER is better)

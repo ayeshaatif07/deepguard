@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,auc,model,non_manipulative_support,non_manipulative_precision,non_manipulative_recall,non_manipulative_f1,manipulative_support,manipulative_precision,manipulative_recall,manipulative_f1
+60,0,0.5,0.03838495413462321,0.25,0.5,0.3333333333333333,0.6422222222222221,BothBosu/roberta-scam-classifier-v1,30,0.5,1.0,0.6666666666666666,30,0.0,0.0,0.0

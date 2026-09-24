@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,wer,cer,avg_inference_time,model
+500,0,0.06013188778361462,0.02301277769398177,4.211282057285309,distil-whisper/distil-large-v3

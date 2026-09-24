@@ -1,0 +1,25 @@
+DeepGuard Signal 1b (image) model evaluation
+======================================================================
+Model tested : 9999 (AI-vs-Deepfake-vs-Real-9999 (SigLIP2))
+Dataset CSV  : ../../Datasets/image-detection/image_detection_600_sample.csv
+Images       : 600
+Device       : cpu
+
+Summary:
+Accuracy | Macro P | Macro R | Macro F1 | Macro AUC (OvR) | Avg inference | N (skipped)
+---------+---------+---------+----------+-----------------+---------------+------------
+1.000    | 1.000   | 1.000   | 1.000    | 1.000           | 0.121s        | 600 (0)    
+
+Per-class breakdown:
+Class      | Support | Precision | Recall | F1   
+-----------+---------+-----------+--------+------
+Artificial | 200     | 1.000     | 1.000  | 1.000
+Deepfake   | 200     | 1.000     | 1.000  | 1.000
+Real       | 200     | 1.000     | 1.000  | 1.000
+
+Confusion matrix (rows=true, cols=pred):
+True \ Pred | Artificial | Deepfake | Real
+------------+------------+----------+-----
+Artificial  | 200        | 0        | 0   
+Deepfake    | 0          | 200      | 0   
+Real        | 0          | 0        | 200 

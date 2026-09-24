@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,auc,model,real_support,real_precision,real_recall,real_f1,fake_support,fake_precision,fake_recall,fake_f1
+200,0,0.595,0.37381031513214114,0.7762430939226519,0.595,0.515535751667215,0.6689,MattyB95/AST-ASVspoof2019 (Audio Spectrogram Transformer),100,1.0,0.19,0.31932773109243695,100,0.5524861878453039,1.0,0.7117437722419929

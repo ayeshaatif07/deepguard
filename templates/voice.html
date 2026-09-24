@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}Voice Analysis{% endblock %}
+
+{% block content %}
+<style>
+  /* Match the background of the Home and Video pages */
+  body {
+    background: url("{{ url_for('static', filename='images/background1.png') }}") center/cover fixed no-repeat;
+    background-color: var(--bg-color); /* fallback */
+  }
+  
+  .voice-overlay {
+    background: rgba(13, 27, 42, 0.75);
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .voice-container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    animation: fadeIn 1.2s ease-out;
+  }
+  
+  .voice-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(42, 179, 142, 0.1);
+  }
+  
+  .voice-header h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #00FFFF, rgb(42, 179, 142));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+  }
+  
+  .voice-header p {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .upload-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(42, 179, 142, 0.5);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(12px);
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: block;
+    margin-bottom: 2.5rem;
+  }
+  
+  .upload-glass:hover {
+    background: rgba(42, 179, 142, 0.08);
+    border-color: rgb(42, 179, 142);
+    box-shadow: 0 8px 32px rgba(42, 179, 142, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .upload-glass .icon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(42, 179, 142, 0.3));
+  }
+
+  .voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .voice-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-panel h3 {
+    color: rgb(42, 179, 142);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.8rem;
+  }
+
+  .glass-panel strong {
+    color: #fff;
+    font-size: 1.05rem;
+  }
+
+  .wave-placeholder {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(42, 179, 142, 0.1);
+    border: 1px solid rgba(42, 179, 142, 0.3);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .transcript-box {
+    padding: 1.2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-style: italic;
+    color: var(--text-muted);
+    min-height: 80px;
+    margin-top: 0.5rem;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(42, 179, 142, 0.2);
+    border-top: 5px solid rgb(42, 179, 142);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+
+<div class="voice-overlay">
+  <div class="voice-container">
+    <div style="text-align: center;">
+      <div class="voice-header">
+        <h2 style="display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+          <span style="font-size: 2.5rem; -webkit-text-fill-color: initial;"><i class="fa-solid fa-microphone-lines"></i></span>
+          <span style="background: linear-gradient(45deg, #00FFFF, rgb(42, 179, 142)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Voice Clone &amp; Manipulation</span>
+        </h2>
+        <p>Detect synthetically generated voices and score manipulation tactics instantly.</p>
+      </div>
+    </div>
+
+    <!-- Pipeline step indicator - shown only when arriving via the video
+         page's "Audio Check" button (see app.js's showPipelineStepBadge) -->
+    <div id="pipelineStepBadge" class="pipeline-step-badge" style="display: none;">
+      <div class="pipeline-step-label" id="pipelineStepLabel">Step 2 of 3 — Voice &amp; Manipulation Check</div>
+      <div class="pipeline-step-chips" id="pipelineStepChips"></div>
+    </div>
+
+    <!-- Upload Zone -->
+    <div id="uploadZone">
+      <label for="audioFile" class="upload-glass">
+        <div class="icon" id="uploadIcon"><i class="fa-solid fa-microphone-lines"></i></div>
+        <h3 style="color: rgb(42, 179, 142); margin-bottom: 0.5rem; font-size: 1.8rem;">Upload Audio or Video File</h3>
+        <p style="color: var(--text-muted); margin: 0; font-size: 1.1rem;" id="uploadHint">Drag & drop or click to select (.mp3, .wav, .m4a, .mp4, .flac)</p>
+        <input type="file" id="audioFile" accept=".mp3,.wav,.m4a,.mp4,.flac" style="display:none;" onchange="handleVoiceUpload()"/>
+      </label>
+
+      <div style="text-align: center; margin: 1.5rem 0; color: var(--text-muted); font-size: 0.9rem;">— or —</div>
+
+      <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; margin-bottom: 2.5rem;">
+        <label for="voiceUrlInput" style="display: block; color: var(--text-main); font-weight: 600; margin-bottom: 0.75rem;">Paste a social media link</label>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <input type="url" id="voiceUrlInput" placeholder="https://www.youtube.com/watch?v=..." style="flex: 1; min-width: 220px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.75rem 1rem; color: var(--text-main); font-family: inherit; font-size: 1rem;" />
+          <button class="btn-action" onclick="handleVoiceUrlAnalysis()" style="padding: 0.75rem 1.5rem;">Analyze Link</button>
+        </div>
+        <p id="voiceUrlError" style="display:none; color: rgb(255, 71, 87); margin: 0.75rem 0 0; font-size: 0.9rem;"></p>
+      </div>
+    </div>
+
+    <div id="loader" class="loader-container" style="display: none; background: rgba(0, 0, 0, 0.5); padding: 3rem; border-radius: 16px; margin-top: 2rem; backdrop-filter: blur(10px); text-align: center;">
+        <div class="spinner"></div>
+        <h3 id="loaderText" style="color: rgb(42, 179, 142); margin-top: 1rem;">Analyzing Voice Model...</h3>
+    </div>
+
+    <!-- No Audio Error Message -->
+    <div id="noAudioError" style="display: none; background: rgba(255, 71, 87, 0.1); border-left: 4px solid rgb(255, 71, 87); padding: 1.5rem; border-radius: 4px 8px 8px 4px; margin-top: 2rem; text-align: left;">
+        <h4 style="margin-top: 0; color: rgb(255, 71, 87); margin-bottom: 0.5rem;"><i class="fa-solid fa-triangle-exclamation"></i> Analysis Failed</h4>
+        <p style="margin: 0; line-height: 1.7; font-size: 1.05rem;">This video file contains no audio track. Voice analysis cannot proceed.</p>
+        <button id="noAudioTryAnotherBtn" class="btn-action" onclick="resetUpload()" style="margin-top: 1rem; background: transparent; border: 2px solid rgb(255, 71, 87); color: rgb(255, 71, 87); padding: 5px 15px; border-radius: 8px; cursor: pointer;">Try Another File</button>
+    </div>
+
+    <div id="results" class="results-glass" style="display: none; background: rgba(0,0,0,0.4); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(255,255,255,0.1); width: 100%;">
+        <div class="results-header" style="text-align: center; margin-bottom: 2rem;">
+            <h3 style="color: rgb(42, 179, 142);">Analysis Results</h3>
+            <p class="text-muted" id="resultFilename" style="margin: 0; font-size: 0.95rem;"></p>
+        </div>
+        
+        <div style="margin-bottom: 2rem; text-align: center;">
+            <div id="verdictBadge" class="verdict-badge" style="display: inline-block; padding: 1rem 2rem; font-size: 1.5rem; font-weight: bold; border-radius: 8px;"></div>
+        </div>
+
+        <div class="metrics-box" style="display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+            <div class="metric-item" style="text-align: center;">
+                <span style="display: block; margin-bottom: 0.5rem; color: #aaa;">Voice Clone Probability</span>
+                <strong id="confidenceScore" style="color: rgb(255, 71, 87); font-size: 1.5rem;"></strong>
+            </div>
+            <div class="metric-item" style="text-align: center;">
+                <span style="display: block; margin-bottom: 0.5rem; color: #aaa;">Manipulation Score</span>
+                <strong id="manipulationScore" style="color: rgb(255, 165, 0); font-size: 1.5rem;"></strong>
+            </div>
+            <div class="metric-item" style="text-align: center;">
+                <span style="display: block; margin-bottom: 0.5rem; color: #aaa;">Inference Time</span>
+                <strong id="inferenceTime" style="font-size: 1.5rem;"></strong>
+            </div>
+        </div>
+
+        <div style="background: rgba(255, 71, 87, 0.1); border-left: 4px solid rgb(255, 71, 87); padding: 1.5rem; border-radius: 4px 8px 8px 4px; margin-bottom: 2.5rem;">
+            <h4 style="margin-top: 0; color: rgb(255, 71, 87); margin-bottom: 0.5rem;">Explanation</h4>
+            <p id="explanationText" style="margin: 0; line-height: 1.7; font-size: 1.05rem;"></p>
+        </div>
+
+        <div class="action-btn-row">
+            <button class="btn-action btn-outline" onclick="resetUpload()">Analyse Another</button>
+            <a href="#" onclick="proceedToCaptionCheck(event)" class="btn-action btn-outline">Caption Check</a>
+            <a href="{{ url_for('verdict') }}" class="btn-action btn-solid">Add to Dashboard</a>
+        </div>
+    </div>
+
+
+
+    <div class="voice-grid">
+        <!-- Voice Clone Section -->
+        <div class="glass-panel">
+            <h3>Voice Clone Detection</h3>
+
+            <p><strong>Voice Characteristics Detected:</strong></p>
+            <p id="voiceCloneNote" style="color: var(--text-muted); margin-bottom: 2rem;">Waiting for input...</p>
+
+            <div class="wave-placeholder">
+                <canvas id="waveformCanvas" width="600" height="120" style="width: 100%; height: 120px; display: block; cursor: pointer;" onclick="seekWaveform(event)"></canvas>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem;">
+                <button id="waveformPlayBtn" onclick="toggleWaveformPlayback()" disabled
+                    style="background: rgb(42, 179, 142); border: none; color: #0D1B2A; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid fa-play" id="waveformPlayIcon"></i>
+                </button>
+                <span id="waveformPlayHint" style="color: var(--text-muted); font-size: 0.85rem;">Waiting for input...</span>
+                <audio id="voiceAudioPlayer" style="display: none;"></audio>
+            </div>
+        </div>
+
+        <!-- Manipulation Section -->
+        <div class="glass-panel">
+            <h3>Voice Manipulation Scoring</h3>
+
+            <p style="margin-bottom: 1.5rem;"><strong>Manipulation Verdict:</strong> <span id="manipulationVerdict" style="color: var(--text-muted); margin-left: 10px;">Waiting for input...</span></p>
+
+            <p><strong>Emotion Breakdown:</strong></p>
+            <ul id="emotionBreakdown" style="list-style-type: none; padding-left: 0; color: var(--text-muted); margin-bottom: 1.5rem;">
+                <li>Waiting for input...</li>
+            </ul>
+
+            <p><strong>Transcript:</strong></p>
+            <div id="voiceTranscript" class="transcript-box">
+                Awaiting audio transcript generation...
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

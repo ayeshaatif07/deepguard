@@ -1,0 +1,15 @@
+End-to-End Pipeline Latency Benchmark
+============================================================
+
+Image path - POST /analyze_image (Signal 1b only) mean=0.057s  median=0.057s  p95=0.061s  min=0.054s  max=0.061s  (n=5)
+Video path - POST /analyze (Signal 1, full request) mean=0.571s  median=0.571s  p95=0.579s  min=0.565s  max=0.579s  (n=5)
+
+Notes:
+- Measured via Flask's own test_client(), which exercises real routing,
+  file-upload parsing, session handling, and template rendering around
+  the real (non-mocked) model inference - not just the model call itself.
+- POST /analyze covers Signal 1 (video deepfake detection) only; the
+  audio/caption continuation (Signals 2-4) is a separate user action
+  in the real UI (see the branch points in Section 3.5 of the report),
+  so it is not included in a single /analyze timing.
+- 5 timed repetitions after 1 discarded warmup run.

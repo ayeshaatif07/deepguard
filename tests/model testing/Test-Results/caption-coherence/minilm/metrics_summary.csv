@@ -1,0 +1,2 @@
+n_evaluated,n_skipped,accuracy,avg_inference_time,macro_precision,macro_recall,macro_f1,auc,model,Incoherent_support,Incoherent_precision,Incoherent_recall,Incoherent_f1,Coherent_support,Coherent_precision,Coherent_recall,Coherent_f1
+28,0,0.5714285714285714,0.09591139214379447,0.7692307692307692,0.5714285714285714,0.475,0.8622448979591836,sentence-transformers/all-MiniLM-L6-v2,14,1.0,0.14285714285714285,0.25,14,0.5384615384615384,1.0,0.7

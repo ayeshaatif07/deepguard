@@ -1,0 +1,37 @@
+DeepGuard Signal 3 (voice manipulation) - fine-tuned model evaluation
+======================================================================
+Base checkpoint: SamLowe/roberta-base-go_emotions (28-class head replaced with a fresh binary head)
+Split: GENUINE disjoint train/test - 20 manipulative + 20 non-manipulative for
+training (40 total, further split 85/15 internally for checkpoint selection);
+10 manipulative + 10 non-manipulative for held-out testing (20 total),
+never touched until this final evaluation.
+Epochs: 10  LR: 2e-05  Batch size: 4
+
+COMPARISON on the SAME 20 held-out transcripts (fine-tuned vs current production heuristic):
+Model                        | Accuracy | Macro P | Macro R | Macro F1 | AUC  
+-----------------------------+----------+---------+---------+----------+------
+Fine-tuned (this run)        | 0.950    | 0.955   | 0.950   | 0.950    | 1.000
+Current production heuristic | 0.750    | 0.753   | 0.750   | 0.749    | 0.860
+
+Fine-tuned model per-class breakdown:
+Class            | Support | Precision | Recall | F1   
+-----------------+---------+-----------+--------+------
+non-manipulative | 10      | 1.000     | 0.900  | 0.947
+manipulative     | 10      | 0.909     | 1.000  | 0.952
+
+Fine-tuned model confusion matrix (rows=true, cols=pred):
+True \ Pred      | non-manipulative | manipulative
+-----------------+------------------+-------------
+non-manipulative | 9                | 1           
+manipulative     | 0                | 10          
+
+Current production heuristic confusion matrix, same held-out set (rows=true, cols=pred):
+True \ Pred      | non-manipulative | manipulative
+-----------------+------------------+-------------
+non-manipulative | 8                | 2           
+manipulative     | 3                | 7           
+
+This is a direct, apples-to-apples comparison: identical held-out transcripts,
+identical base checkpoint, only the scoring approach differs (derived emotion-sum
+heuristic vs a fine-tuned binary head trained directly on this project's own
+labelled transcripts).

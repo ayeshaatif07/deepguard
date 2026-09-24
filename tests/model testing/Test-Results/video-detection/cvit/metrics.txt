@@ -1,0 +1,23 @@
+DeepGuard Signal 1 (video) model evaluation
+======================================================================
+Model tested : cvit
+Dataset CSV  : ../../../../tests/model testing/Datasets/video-detection/video_detection_150_official_sample.csv
+Videos       : 150
+Frames/video : 20
+Device       : mps
+
+Model                            | Accuracy | Precision | Recall | F1    | AUC   | Avg Time (s) | N eval | N skipped
+---------------------------------+----------+-----------+--------+-------+-------+--------------+--------+----------
+CViT2 (Wodajo & Atnafu, CNN+ViT) | 0.647    | 0.608     | 0.827  | 0.701 | 0.754 | 1.08         | 150    | 0        
+
+Per-class breakdown [CViT2 (Wodajo & Atnafu, CNN+ViT)]:
+  Class | Support | Accuracy | Precision | Recall | F1   
+  ------+---------+----------+-----------+--------+------
+  Real  | 75      | 0.467    | 0.729     | 0.467  | 0.569
+  Fake  | 75      | 0.827    | 0.608     | 0.827  | 0.701
+
+Confusion matrix [CViT2 (Wodajo & Atnafu, CNN+ViT)] (rows=true, cols=pred):
+  True \ Pred | real | fake
+  ------------+------+-----
+  real        | 35   | 40  
+  fake        | 13   | 62  
