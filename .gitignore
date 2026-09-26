@@ -33,7 +33,14 @@ usage_log.db
 
 # Evaluation datasets - obtained under their own licences and not redistributable
 # (FaceForensics++ via TUM research access, LibriSpeech, etc.)
-tests/model testing/Datasets/
+tests/model testing/Datasets/*
+# ...but keep the sample manifests and per-dataset notes, which list the exact
+# files and labels used. They make the benchmarks reproducible without
+# redistributing any media.
+!tests/model testing/Datasets/*/
+tests/model testing/Datasets/*/*
+!tests/model testing/Datasets/*/*.csv
+!tests/model testing/Datasets/*/*.md
 
 # ...but keep the 4 KB UniversalFakeDetect classifier head (not a large weight file)
 !tests/model testing/testing/video-detection/weights/universal/fc_weights.pth

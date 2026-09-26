@@ -205,6 +205,13 @@ http://localhost:5001
 Datasets are **not redistributed in this repository.** Each must be obtained from
 its own source under its own terms.
 
+What *is* committed is the manifest for each one, under
+`tests/model testing/Datasets/<signal>/`: a CSV listing every file path and
+label in the exact sample that was benchmarked, plus a README describing how
+that sample was built. Once you have obtained a dataset yourself, these
+reproduce the same 150-clip, 600-image and 500-clip splits rather than a
+different random draw. No media is included.
+
 ### FaceForensics++: video deepfake detection
 
 Obtained through the research-access process run by the Technical University of
