@@ -210,16 +210,16 @@ its own source under its own terms.
 
 What *is* committed is the manifest for each one, under
 `tests/model testing/Datasets/<signal>/`: a CSV listing every file path and
-label in the exact sample that was benchmarked, plus a README describing how
-that sample was built. Once you have obtained a dataset yourself, these
-reproduce the same 150-clip, 600-image and 500-clip splits rather than a
-different random draw. No media is included.
+label in the exact sample that was benchmarked, and for three of them a README
+describing how that sample was built. Once you have obtained a dataset yourself, these
+reproduce the same 150-clip, 600-image, 500-utterance and 200-clip samples
+rather than a different random draw. No media is included.
 
 | Dataset | Used for | Included? | Licence |
 |---|---|---|---|
 | FaceForensics++ (c23, 150-clip sample) | Signal 1, video | **No**, manifest only; redistribution prohibited | Non-commercial research and educational use only |
 | `prithivMLmods/AI-vs-Deepfake-vs-Real` (600-image sample) | Signal 1b, image | **No**, manifest only; gated at source | Apache 2.0 |
-| `garystafford/deepfake-audio-detection` (500-clip sample) | Signal 2, voice clone | **No**, manifest only | CC BY 4.0, attribution to Stafford, G. |
+| `garystafford/deepfake-audio-detection` (200-clip sample) | Signal 2, voice clone | **No**, manifest only | CC BY 4.0, attribution to Stafford, G. |
 | LibriSpeech test-other (500-clip sample) | Signal 3a, transcription | **No**, manifest and transcripts only | CC BY 4.0 |
 | Voice manipulation clips (60, recorded for this project) | Signal 3b, manipulation | Transcripts only, no audio | This project's own material |
 | Caption coherence pairs (collected for this project) | Signal 4, coherence | Captions and transcripts only, no media | This project's own collection; source posts are third-party |
@@ -256,7 +256,7 @@ also apply to onward redistribution.
 ### garystafford/deepfake-audio-detection: voice clone detection
 
 Openly available under **CC BY 4.0**, which requires attribution to
-**Stafford, G.** A 500-clip sample is used for benchmarking Signal 2 and for
+**Stafford, G.** A 200-clip sample is used for benchmarking Signal 2 and for
 fine-tuning the shipped AST checkpoint.
 
 Dataset page: <https://huggingface.co/datasets/garystafford/deepfake-audio-detection>
