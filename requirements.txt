@@ -2,34 +2,34 @@
 # Install with:  pip install -r requirements.txt
 
 # --- Runtime: the application itself (app.py + modules/) ---
-torch
-torchvision
-transformers
-opencv-python-headless
-Pillow
-numpy
-Flask
-scikit-learn
-Werkzeug
-einops
-huggingface_hub
-soundfile
-librosa
-sentence-transformers
-reportlab
-yt-dlp
+torch==2.12.0
+torchvision==0.27.0
+transformers==5.11.0
+opencv-python-headless==4.13.0.92
+Pillow==12.2.0
+numpy==2.4.6
+Flask==3.1.3
+scikit-learn==1.9.0
+Werkzeug==3.1.8
+einops==0.8.2
+huggingface_hub==1.18.0
+soundfile==0.14.0
+librosa==1.0.0
+sentence-transformers==6.0.1
+reportlab==5.0.1
+yt-dlp==2026.8.19
 
 # --- Testing and evaluation: the suites under tests/ ---
 # Not needed to run the application, only to reproduce the benchmarks.
-pytest              # unit + functionality suites
-requests            # performance testing: live-server load and resource tests
-psutil              # performance testing: CPU / RSS sampling
-matplotlib          # benchmark charts (model testing + performance testing)
-pandas              # dataset preparation and results tables
-jiwer               # speech transcription WER / CER scoring
-datasets            # LibriSpeech download (audio transcription)
-pyarrow             # image dataset preparation
-timm                # EfficientNet-B7-NS candidate (video detection benchmark)
+pytest==9.1.1       # unit + functionality suites
+requests==2.34.2    # performance testing: live-server load and resource tests
+psutil==7.2.2       # performance testing: CPU / RSS sampling
+matplotlib==3.11.1  # benchmark charts (model testing + performance testing)
+pandas==3.0.5       # dataset preparation and results tables
+jiwer==4.0.0        # speech transcription WER / CER scoring
+datasets==5.0.1     # LibriSpeech download (audio transcription)
+pyarrow==25.0.1     # image dataset preparation
+timm==1.0.28        # EfficientNet-B7-NS candidate (video detection benchmark)
 
 # --- Not installable via pip ---
 # Voice analysis (Signals 2 and 3) needs the ffmpeg system binary on PATH,

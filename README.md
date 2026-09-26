@@ -159,6 +159,9 @@ venv\Scripts\activate             # Windows
 pip install -r requirements.txt
 ```
 
+Versions are pinned to the environment the benchmarks were produced in, so a
+clone installs the same stack rather than whatever is current.
+
 Verify the install, including the ffmpeg binary:
 
 ```bash
