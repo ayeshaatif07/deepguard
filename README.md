@@ -381,16 +381,40 @@ This project is released under the **Apache License 2.0**; see [`LICENSE`](LICEN
 Third-party components keep their own terms, which are not superseded by the
 above:
 
-| Component | Type | Terms |
-|---|---|---|
-| `Deressa/cvit` (Signal 1) | Model | No licence stated on the model repository; used here for non-commercial academic evaluation only |
-| `prithivMLmods/AI-vs-Deepfake-vs-Real` (Signal 1b) | Model | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
-| `prithivMLmods/AI-vs-Deepfake-vs-Real` (image benchmark, gated) | Dataset | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
-| `openai/whisper-small` (Signal 3a) | Model | Apache License 2.0 |
-| `sentence-transformers/all-MiniLM-L6-v2` (Signal 4) | Model | Apache License 2.0 |
-| FaceForensics++ (Signal 1 benchmark) | Dataset | FaceForensics Terms of Use: non-commercial research and educational use only |
-| LibriSpeech test-other (Signal 3a benchmark) | Dataset | CC BY 4.0 |
-| `garystafford/deepfake-audio-detection` (Signal 2 benchmark) | Dataset | CC BY 4.0, attribution to Stafford, G. |
+Every model benchmarked is listed, not only the ones that shipped, since a
+rejected candidate was still downloaded and run under its own terms.
 
-The fine-tuned checkpoints (`ast_asvspoof_finetuned`, `goemotions_finetuned`) are
-derivative works of their respective base models and inherit those models' terms.
+| Component | Type | Used for | Status | Terms |
+|---|---|---|---|---|
+| `Deressa/cvit` | Model | Signal 1, video | **Selected** | None stated on the model repository; used here for non-commercial academic evaluation only |
+| EfficientNet-B7-NS ([selimsef DFDC solution](https://github.com/selimsef/dfdc_deepfake_challenge)) | Model | Signal 1, video | Rejected | MIT |
+| `Naman712/Deep-fake-detection` | Model | Signal 1, video | Rejected | MIT |
+| UniversalFakeDetect (CLIP ViT-L/14 + linear probe) | Model | Signal 1, video | Rejected | MIT, for both the probe and OpenAI CLIP |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real` | Model | Signal 1b, image | **Selected** | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real-v2.0` | Model | Signal 1b, image | Rejected, data leakage | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real-9999` | Model | Signal 1b, image | Rejected, data leakage | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `ast_asvspoof_finetuned` (this project) | Model | Signal 2, voice clone | **Selected** | MIT, inherited from its base model |
+| `MattyB95/AST-ASVspoof2019-Synthetic-Voice-Detection` | Model | Signal 2, voice clone | Base model, rejected untuned | MIT |
+| `MelodyMachine/Deepfake-audio-detection-V2` | Model | Signal 2, voice clone | Rejected | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `mo-thecreator/Deepfake-audio-detection` | Model | Signal 2, voice clone | Rejected | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `openai/whisper-small` | Model | Signal 3a, transcription | **Selected** | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `openai/whisper-base` | Model | Signal 3a, transcription | Rejected | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `distil-whisper/distil-large-v3` | Model | Signal 3a, transcription | Rejected | MIT |
+| `facebook/wav2vec2-large-960h-lv60-self` | Model | Signal 3a, transcription | Rejected | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `goemotions_finetuned` (this project) | Model | Signal 3b, manipulation | **Selected** | MIT, inherited from its base model |
+| `SamLowe/roberta-base-go_emotions` | Model | Signal 3b, manipulation | Base model, rejected untuned | MIT |
+| `BothBosu/roberta-scam-classifier-v1` | Model | Signal 3b, manipulation | Rejected | MIT |
+| `valurank/distilroberta-propaganda-2class` | Model | Signal 3b, manipulation | Rejected | Stated only as "other"; no specific licence named |
+| `sentence-transformers/all-MiniLM-L6-v2` | Model | Signal 4, coherence | **Selected** | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `sentence-transformers/all-mpnet-base-v2` | Model | Signal 4, coherence | Rejected | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `cross-encoder/stsb-roberta-base` | Model | Signal 4, coherence | Rejected | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `cross-encoder/nli-deberta-v3-base` | Model | Signal 4, coherence | Rejected | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| FaceForensics++ | Dataset | Signal 1 benchmark | Used | FaceForensics Terms of Use: non-commercial research and educational use only |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real` (gated) | Dataset | Signal 1b benchmark | Used | [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `garystafford/deepfake-audio-detection` | Dataset | Signal 2 benchmark | Used | CC BY 4.0, attribution to Stafford, G. |
+| LibriSpeech test-other | Dataset | Signal 3a benchmark | Used | CC BY 4.0 |
+
+The two fine-tuned checkpoints are derivative works of the base models directly
+above them and inherit those models' terms. Licences were read from each model
+card at the time of writing; a maintainer can change them, so check before any
+use beyond academic evaluation.
