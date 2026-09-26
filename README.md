@@ -381,16 +381,16 @@ This project is released under the **Apache License 2.0**; see [`LICENSE`](LICEN
 Third-party components keep their own terms, which are not superseded by the
 above:
 
-| Component | Terms |
-|---|---|
-| `Deressa/cvit` (Signal 1 model) | No licence stated on the model repository; used here for non-commercial academic evaluation only |
-| `prithivMLmods/AI-vs-Deepfake-vs-Real` (Signal 1b model) | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
-| `prithivMLmods/AI-vs-Deepfake-vs-Real` (image detection dataset, gated) | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
-| `openai/whisper-small` (Signal 3a) | Apache License 2.0 |
-| `sentence-transformers/all-MiniLM-L6-v2` (Signal 4) | Apache License 2.0 |
-| FaceForensics++ dataset | FaceForensics Terms of Use: non-commercial research and educational use only |
-| LibriSpeech test-other | CC BY 4.0 |
-| `garystafford/deepfake-audio-detection` | CC BY 4.0, attribution to Stafford, G. |
+| Component | Type | Terms |
+|---|---|---|
+| `Deressa/cvit` (Signal 1) | Model | No licence stated on the model repository; used here for non-commercial academic evaluation only |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real` (Signal 1b) | Model | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real` (image benchmark, gated) | Dataset | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `openai/whisper-small` (Signal 3a) | Model | Apache License 2.0 |
+| `sentence-transformers/all-MiniLM-L6-v2` (Signal 4) | Model | Apache License 2.0 |
+| FaceForensics++ (Signal 1 benchmark) | Dataset | FaceForensics Terms of Use: non-commercial research and educational use only |
+| LibriSpeech test-other (Signal 3a benchmark) | Dataset | CC BY 4.0 |
+| `garystafford/deepfake-audio-detection` (Signal 2 benchmark) | Dataset | CC BY 4.0, attribution to Stafford, G. |
 
 The fine-tuned checkpoints (`ast_asvspoof_finetuned`, `goemotions_finetuned`) are
 derivative works of their respective base models and inherit those models' terms.
