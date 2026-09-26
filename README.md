@@ -219,9 +219,17 @@ download script TUM provides. The c23 compression level is used throughout.
 
 ### prithivMLmods/AI-vs-Deepfake-vs-Real: image detection
 
-A **gated HuggingFace dataset.** Accept the terms on the dataset page while
-signed in, then authenticate with `huggingface-cli login`. A 600-image sample
-(200 per class) is used for benchmarking.
+Licensed under the **Apache License 2.0**, and **gated**: accept the terms on the
+dataset page while signed in, then authenticate with `huggingface-cli login`.
+A 600-image sample (200 per class) is used for benchmarking.
+
+Dataset page: <https://huggingface.co/datasets/prithivMLmods/AI-vs-Deepfake-vs-Real>
+
+Apache 2.0 permits research use and redistribution with attribution, but the
+gating is a separate access condition: each user must accept the terms under
+their own account, so the images are not redistributed here. The dataset is
+itself assembled from subsets of three upstream datasets, whose own terms may
+also apply to onward redistribution.
 
 ### LibriSpeech test-other: speech transcription
 
@@ -377,6 +385,7 @@ above:
 |---|---|
 | `Deressa/cvit` (Signal 1 model) | No licence stated on the model repository; used here for non-commercial academic evaluation only |
 | `prithivMLmods/AI-vs-Deepfake-vs-Real` (Signal 1b model) | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real` (image detection dataset, gated) | [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/) |
 | `openai/whisper-small` (Signal 3a) | Apache License 2.0 |
 | `sentence-transformers/all-MiniLM-L6-v2` (Signal 4) | Apache License 2.0 |
 | FaceForensics++ dataset | FaceForensics Terms of Use: non-commercial research and educational use only |
