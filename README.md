@@ -212,6 +212,18 @@ that sample was built. Once you have obtained a dataset yourself, these
 reproduce the same 150-clip, 600-image and 500-clip splits rather than a
 different random draw. No media is included.
 
+| Dataset | Used for | Included? | Licence |
+|---|---|---|---|
+| FaceForensics++ (c23, 150-clip sample) | Signal 1, video | **No**, manifest only; redistribution prohibited | Non-commercial research and educational use only |
+| `prithivMLmods/AI-vs-Deepfake-vs-Real` (600-image sample) | Signal 1b, image | **No**, manifest only; gated at source | Apache 2.0 |
+| `garystafford/deepfake-audio-detection` (500-clip sample) | Signal 2, voice clone | **No**, manifest only | CC BY 4.0, attribution to Stafford, G. |
+| LibriSpeech test-other (500-clip sample) | Signal 3a, transcription | **No**, manifest and transcripts only | CC BY 4.0 |
+| Voice manipulation clips (60, recorded for this project) | Signal 3b, manipulation | Transcripts only, no audio | This project's own material |
+| Caption coherence pairs (collected for this project) | Signal 4, coherence | Captions and transcripts only, no media | This project's own collection; source posts are third-party |
+
+Only the last two were produced for this project. Everything else belongs to its
+original authors and is fetched from their source, never from here.
+
 ### FaceForensics++: video deepfake detection
 
 Obtained through the research-access process run by the Technical University of
@@ -237,6 +249,14 @@ gating is a separate access condition: each user must accept the terms under
 their own account, so the images are not redistributed here. The dataset is
 itself assembled from subsets of three upstream datasets, whose own terms may
 also apply to onward redistribution.
+
+### garystafford/deepfake-audio-detection: voice clone detection
+
+Openly available under **CC BY 4.0**, which requires attribution to
+**Stafford, G.** A 500-clip sample is used for benchmarking Signal 2 and for
+fine-tuning the shipped AST checkpoint.
+
+Dataset page: <https://huggingface.co/datasets/garystafford/deepfake-audio-detection>
 
 ### LibriSpeech test-other: speech transcription
 
