@@ -1,7 +1,7 @@
 # Unit Testing
 
 Two independent suites, kept separate because they run in different
-languages/environments. Both are distinct from `Tests/testing/` (the
+languages/environments. Both are distinct from `tests/model testing/testing/` (the
 model-accuracy benchmarking suite elsewhere in this project) - these
 test whether the *code* behaves correctly, not whether a model is
 accurate.

@@ -8,7 +8,7 @@ model in this project, which went through a test-and-compare process
 before being chosen. This folder closes that gap.
 
 ```
-Tests/testing/audiotranscription/
+tests/model testing/testing/audiotranscription/
 ├── common.py                        ← shared CSV loading / WER / CER / reporting
 ├── prepare_librispeech.py           ← builds the LibriSpeech test-other subset
 ├── test_whisper.py                  ← openai/whisper-base
@@ -32,7 +32,7 @@ below) — not included in scripts or results.
 
 ## Dataset
 
-**`Tests/Datasets/librispeech-test-other/`** — a fixed 500-clip random
+**`tests/model testing/Datasets/librispeech-test-other/`** — a fixed 500-clip random
 sample (`random.sample`, seed 42) drawn from LibriSpeech's `test-other`
 split (2,939 clips total, ~328MB) — LibriSpeech's noisier/harder
 companion split to `test-clean`, a tougher stress test than clean
@@ -154,15 +154,15 @@ benchmark):
 
 This should still be treated as the best answer found so far, not a
 permanently closed question — expanding the original 60-clip
-`Tests/Datasets/voice-manipulation/` production-domain dataset (see
-`Tests/testing/voice-manipulation/`) with more real examples would be
+`tests/model testing/Datasets/voice-manipulation/` production-domain dataset (see
+`tests/model testing/testing/voice-manipulation/`) with more real examples would be
 the highest-value next step for a more confident final answer, since
 it's the closest proxy to actual traffic available.
 
 ## Output
 
-`Tests/Test-Results/audiotranscription/<model_key>/` per model
+`tests/model testing/Test-Results/audiotranscription/<model_key>/` per model
 (`metrics.txt`, `metrics_summary.csv`, `predictions_<model>.csv`,
-`wer_distribution.png`); `Tests/Test-Results/audiotranscription/combined/`
+`wer_distribution.png`); `tests/model testing/Test-Results/audiotranscription/combined/`
 for the cross-model comparison (`combined_metrics_summary.csv`,
 `wer_comparison.png`, `inference_time_comparison.png`, `metrics.txt`).

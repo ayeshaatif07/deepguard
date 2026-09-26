@@ -1,11 +1,11 @@
 # Signal 3 model evaluation — voice manipulation scoring
 
 Rebuilt from scratch against a real, hand-constructed dataset (see
-`Tests/Datasets/voice-manipulation/README.md`), mirroring the structure of
-`Tests/testing/voice-clone/` and the other signals.
+`tests/model testing/Datasets/voice-manipulation/README.md`), mirroring the structure of
+`tests/model testing/testing/voice-clone/` and the other signals.
 
 ```
-Tests/testing/voice-manipulation/
+tests/model testing/testing/voice-manipulation/
 ├── common.py                        ← shared CSV loading / metrics / reporting
 ├── test_bothbosu.py                 ← BothBosu/roberta-scam-classifier-v1
 ├── test_propaganda.py               ← valurank/distilroberta-propaganda-2class
@@ -15,13 +15,13 @@ Tests/testing/voice-manipulation/
 
 ## Dataset
 
-`Tests/Datasets/voice-manipulation/signal3_transcripts_final.csv` — 60
+`tests/model testing/Datasets/voice-manipulation/signal3_transcripts_final.csv` — 60
 real clips constructed by the project owner (not downloaded), perfectly
 balanced (30 manipulative / 30 non-manipulative), each with a transcript,
 label, and a hand-annotated `manipulation_tactics` column (18 distinct
 tags: urgency, authority, fear, guilt, FOMO, trust exploitation, legal
 threat, etc.). Matching mp3 audio for every row lives under
-`Tests/Datasets/voice-manipulation/audio/`.
+`tests/model testing/Datasets/voice-manipulation/audio/`.
 
 ## Models tested — 3 candidates
 
@@ -44,14 +44,14 @@ implementation") — this is the model that proposal was describing.
 ## Run
 
 ```bash
-cd Tests/testing/voice-manipulation
+cd tests/model testing/testing/voice-manipulation
 python test_bothbosu.py --device mps
 python test_propaganda.py --device mps
 python test_goemotions.py --device mps
 python combine_manipulation_results.py
 ```
 
-Output per model goes to `Tests/Test-Results/voice-manipulation/<model_key>/`:
+Output per model goes to `tests/model testing/Test-Results/voice-manipulation/<model_key>/`:
 `metrics.txt`, `metrics_summary.csv`, `predictions_<model>.csv`,
 `per_class.png`, `confusion_matrix.png`.
 
@@ -106,6 +106,6 @@ target label.
 
 ## Output
 
-`Tests/Test-Results/voice-manipulation/combined/`: `combined_metrics_summary.csv`,
+`tests/model testing/Test-Results/voice-manipulation/combined/`: `combined_metrics_summary.csv`,
 `combined_predictions.csv`, `metrics_comparison.png`,
 `threshold_calibration.png`, `auc_comparison.png`, `metrics.txt`.

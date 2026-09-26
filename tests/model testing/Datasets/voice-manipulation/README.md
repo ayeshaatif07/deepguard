@@ -5,7 +5,7 @@ source, unlike the video/image/voice-clone datasets), delivered as
 `dataset_voice manipulation.zip` and extracted here.
 
 ```
-Tests/Datasets/voice-manipulation/
+tests/model testing/Datasets/voice-manipulation/
 ├── signal3_transcripts_final.csv   ← 60 rows: clip_id, audio_filename, transcript, label, manipulation_tactics
 └── audio/                          ← 60 matching .mp3 files
 ```
@@ -18,5 +18,5 @@ Tests/Datasets/voice-manipulation/
   richer than a flat binary label, useful for future tactic-level
   evaluation beyond the current manipulative/non-manipulative benchmark.
 
-See `Tests/testing/voice-manipulation/README.md` for how this dataset is
+See `tests/model testing/testing/voice-manipulation/README.md` for how this dataset is
 used to benchmark candidate models.

@@ -1,11 +1,11 @@
 # Signal 2 model evaluation — voice clone detection
 
-Standalone scripts, mirroring `Tests/testing/video-detection/` and
-`Tests/testing/image-detection/` — evaluate candidate models *before*
+Standalone scripts, mirroring `tests/model testing/testing/video-detection/` and
+`tests/model testing/testing/image-detection/` — evaluate candidate models *before*
 wiring one into the live site.
 
 ```
-Tests/testing/voice-clone/
+tests/model testing/testing/voice-clone/
 ├── prepare_voice_dataset.py   ← downloads + samples the dataset
 ├── common.py                  ← shared CSV loading / metrics / reporting
 ├── test_melodymachine.py      ← MelodyMachine/Deepfake-audio-detection-V2
@@ -23,11 +23,11 @@ Luvvoice, Speechify) for the fake class, and 14 YouTube recordings for the
 real class:
 
 ```bash
-cd Tests/testing/voice-clone
+cd tests/model testing/testing/voice-clone
 python prepare_voice_dataset.py --per-class 100
 ```
 
-`Tests/Datasets/voice-clone/voice_clone_200_sample.csv` records the exact
+`tests/model testing/Datasets/voice-clone/voice_clone_200_sample.csv` records the exact
 200-clip sample (100 real / 100 fake) used for the comparison below.
 
 ## Run — one script per model
@@ -40,10 +40,10 @@ python test_mothecreator.py \
 ```
 
 Swap in `test_melodymachine.py` for the other candidate. Output goes to
-`Tests/Test-Results/voice-clone/<model_key>/`: `metrics.txt`,
+`tests/model testing/Test-Results/voice-clone/<model_key>/`: `metrics.txt`,
 `metrics_summary.csv`, `predictions_<model>.csv`, `per_class.png`,
 `confusion_matrix.png`. `combine_voice_results.py` reads both models'
-saved output and writes `Tests/Test-Results/voice-clone/combined/`.
+saved output and writes `tests/model testing/Test-Results/voice-clone/combined/`.
 
 ## Models
 
@@ -71,9 +71,9 @@ own card — but its extra fine-tuning step appears to have overfit to a
 narrower training distribution and lost generalization to unseen TTS
 platforms, exactly the "self-reported accuracy ≠ real generalization"
 lesson learned earlier with the image models (`prithivMLmods/*-9999` and
-`-v2.0`) in `Tests/testing/image-detection/`.
+`-v2.0`) in `tests/model testing/testing/image-detection/`.
 
 ## Repo-level layout
 
-See `Tests/testing/README.md` at the top of `Tests/testing/` for the full
+See `tests/model testing/testing/README.md` at the top of `tests/model testing/testing/` for the full
 repo layout across all signals (video/image/voice).

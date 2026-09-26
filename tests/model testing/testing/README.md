@@ -2,14 +2,14 @@
 
 Standalone scripts — live outside `app.py` / `modules/` on purpose, so you can
 evaluate candidate models *before* wiring one into the live site. Lives under
-`Tests/testing/`, a sibling of `Tests/Test-Results/` (outputs) and
-`Tests/Datasets/` (frozen sample CSVs) — see the repo-level layout note at
+`tests/model testing/testing/`, a sibling of `tests/model testing/Test-Results/` (outputs) and
+`tests/model testing/Datasets/` (frozen sample CSVs) — see the repo-level layout note at
 the bottom.
 
-`Tests/testing/` is split into one subfolder per signal:
+`tests/model testing/testing/` is split into one subfolder per signal:
 
 ```
-Tests/testing/
+tests/model testing/testing/
 ├── video-detection/      ← Signal 1.  4 candidates + weights/
 ├── image-detection/      ← Signal 1b. 3 candidates
 ├── voice-clone/          ← Signal 2.  3 base candidates + this project's fine-tune
@@ -88,7 +88,7 @@ outside the licence.
 
 The copy used here is already in the repo, together with the frozen
 150-clip manifest that every video benchmark reads - see
-`Tests/Datasets/video-detection/README.md`. The CSV format is one row per
+`tests/model testing/Datasets/video-detection/README.md`. The CSV format is one row per
 video with a path and a REAL/FAKE label, e.g.:
 
 ```python
@@ -106,12 +106,12 @@ with open("ff_c23_labels.csv", "w", newline="") as fh:
     w.writerows(rows)
 ```
 
-`Tests/Datasets/video-detection/video_detection_150_official_sample.csv`
+`tests/model testing/Datasets/video-detection/video_detection_150_official_sample.csv`
 records the exact 150-video stratified sample (75 real / 75 fake) used for
 every model comparison, pointing into `official_ff_download/`, the copy
 obtained through FaceForensics++'s official research-access process at
 c23 (HQ). The same 150 clips are also copied to
-`Tests/Datasets/video-detection/videos/REAL/` and `videos/FAKE/`, named
+`tests/model testing/Datasets/video-detection/videos/REAL/` and `videos/FAKE/`, named
 `<source>_<clip>.mp4` so each file's origin (youtube, Deepfakes,
 Face2Face, FaceShifter, FaceSwap, NeuralTextures, DeepFakeDetection) is
 readable from the filename alone.
@@ -119,7 +119,7 @@ readable from the filename alone.
 ## Run — one script per model
 
 ```bash
-cd Tests/testing/video-detection
+cd tests/model testing/testing/video-detection
 python test_naman.py \
     --csv ff_c23_labels.csv \
     --video-root /path/to/ff-c23 \
@@ -143,14 +143,14 @@ script, separate run.
 
 **Caution:** never run a smoke test (e.g. `--limit 4`) without an explicit
 `--output-dir` pointing somewhere disposable — every script defaults to
-writing into `Tests/Test-Results/video-detection/<model>/`, which will
+writing into `tests/model testing/Test-Results/video-detection/<model>/`, which will
 silently overwrite real results from a full run. Use
 `--output-dir /tmp/smoke-test` or similar for anything exploratory.
 
 ## Output
 
-Each run writes to `Tests/Test-Results/video-detection/<model>/` (e.g.
-`Tests/Test-Results/video-detection/naman/`):
+Each run writes to `tests/model testing/Test-Results/video-detection/<model>/` (e.g.
+`tests/model testing/Test-Results/video-detection/naman/`):
 
 - **Terminal**: Accuracy / Precision / Recall / F1 / AUC / avg inference time
   for that model, printed live as each video is processed.
@@ -168,7 +168,7 @@ Each run writes to `Tests/Test-Results/video-detection/<model>/` (e.g.
 
 `combine_video_results.py` reads every model's saved output (no re-running
 inference) and writes a cross-model comparison to
-`Tests/Test-Results/video-detection/combined/`: `combined_metrics_summary.csv`,
+`tests/model testing/Test-Results/video-detection/combined/`: `combined_metrics_summary.csv`,
 `combined_predictions.csv` (one row per video, one score column per model),
 and 5 comparison charts. Run it any time after two or more models have been
 benchmarked.
@@ -183,10 +183,10 @@ benchmarked.
 | `test_efficientnet.py` | EfficientNet-B7-NS (selimsef DFDC winner) | Tested and rejected. The real "EfficientNet" candidate from the report — actual Kaggle DFDC Challenge winning solution, not the report's separately-proposed (and unweighted/undownloadable) "EfficientNet-B5 + Bi-LSTM" design. Highest accuracy/AUC of all models tested, but slower and lower-recall than CViT2. |
 
 CViT2 was the model selected for Signal 1 — see `modules/video_detection/cvit_scorer.py`
-and `Tests/Test-Results/video-detection/` for the full comparison and
+and `tests/model testing/Test-Results/video-detection/` for the full comparison and
 decision writeup. `modules/` now contains only the model actually used in
 production; every candidate's architecture/weights (including CViT2's own
-copy, downloaded separately for testing) live under `Tests/testing/video-detection/weights/`
+copy, downloaded separately for testing) live under `tests/model testing/testing/video-detection/weights/`
 so this comparison stays reproducible without depending on `modules/`.
 
 ## Image detection (Signal 1b)
@@ -211,7 +211,7 @@ See `voice-clone/README.md` - summarised at the top of this file. Signal 3
 ```
 deepguard/
 ├── app.py, modules/, templates/, static/   ← the live Flask app
-└── Tests/
+└── tests/model testing/
     ├── testing/             ← one folder per signal (see the tree above)
     ├── Test-Results/        ← per-model metrics, predictions and graphs,
     │                          plus combined/ per signal
