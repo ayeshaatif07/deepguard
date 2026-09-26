@@ -9,7 +9,7 @@ programmatically from those same 15 clips, not sourced separately - see
 "How Incoherent pairs were built" below.
 
 ```
-Tests/Datasets/caption-coherence/
+tests/model testing/Datasets/caption-coherence/
 └── signal4_coherence.csv   ← 28 rows: pair_id, clip_id, url, platform,
                                 title, transcript, caption, label,
                                 caption_source_clip_id
@@ -27,7 +27,7 @@ For each usable URL, this project's own extraction pipeline was reused
 directly - `modules/social_media/url_extractor.py`'s `download_video()`
 for the video/caption, and `voice_manipulation_scorer.transcribe()`
 (the same `openai/whisper-small` production model, see
-`Tests/testing/audiotranscription/`) for the transcript - so this
+`tests/model testing/testing/audiotranscription/`) for the transcript - so this
 dataset's transcripts reflect exactly what production would actually
 produce, not a manually-typed idealized transcript.
 
@@ -38,7 +38,7 @@ caption**, via a derangement (a random permutation with no clip mapped to
 itself) over the 14 clips, `random.seed(42)` for reproducibility -
 matching this project's existing convention for reproducible random
 sampling (e.g. the LibriSpeech benchmark subsets in
-`Tests/testing/audiotranscription/`). `caption_source_clip_id` on each
+`tests/model testing/testing/audiotranscription/`). `caption_source_clip_id` on each
 `Incoherent` row records exactly which clip the mismatched caption came
 from, so every pairing is traceable and auditable, not a black box.
 
@@ -70,5 +70,6 @@ real pair and one mismatched pair per source clip.
 - Instagram coverage is 4/5 rather than 5/5 (one supplied URL was an
   image post, not a video).
 
-See `Tests/testing/caption-coherence/` (once built) for how this dataset
-is used to benchmark candidate Signal 4 models.
+See `tests/model testing/testing/caption-coherence/` for how this dataset is
+used to benchmark candidate Signal 4 models, and
+`tests/model testing/Test-Results/caption-coherence/` for the results.
