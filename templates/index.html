@@ -122,6 +122,12 @@
         <input type="file" id="videoFile" accept=".mp4,.avi,.mov" style="display:none;" />
       </label>
 
+      <div id="videoConfirm" style="display: none; margin-top: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem 1.25rem; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <span style="color: var(--text-muted); font-size: 0.95rem;">Selected:</span>
+        <span id="videoChosenName" style="color: var(--text-main); font-weight: 600; flex: 1; min-width: 160px; word-break: break-all;"></span>
+        <button class="btn-action" onclick="handleUpload()" style="padding: 0.75rem 1.5rem;">Analyse Video</button>
+      </div>
+
       <div style="text-align: center; margin: 1.5rem 0; color: var(--text-muted); font-size: 0.9rem;">— or —</div>
 
       <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem;">

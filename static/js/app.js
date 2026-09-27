@@ -1,5 +1,19 @@
 let scoreChart = null;
 
+// Picking a file only selects it; analysis starts when the user presses
+// "Analyse Video". This matches the link path, which has always needed its
+// own button - user testing showed the two paths behaving differently was
+// the main source of hesitation on a first video check.
+function showVideoConfirm() {
+    const fileInput = document.getElementById('videoFile');
+    const file = fileInput.files[0];
+    const box = document.getElementById('videoConfirm');
+    const name = document.getElementById('videoChosenName');
+    if (!file) { if (box) box.style.display = 'none'; return; }
+    if (name) name.textContent = file.name;
+    if (box) box.style.display = 'flex';
+}
+
 function handleUpload() {
     const fileInput = document.getElementById('videoFile');
     const file = fileInput.files[0];
@@ -12,6 +26,8 @@ function handleUpload() {
     const formData = new FormData();
     formData.append('video', file);
 
+    const confirmBox = document.getElementById('videoConfirm');
+    if (confirmBox) confirmBox.style.display = 'none';
     document.getElementById('uploadZone').style.display = 'none';
     document.getElementById('loader').style.display = 'block';
     document.getElementById('results').style.display = 'none';
@@ -334,6 +350,7 @@ function resetUpload() {
     if(document.getElementById('loader')) document.getElementById('loader').style.display = 'none';
     if(document.getElementById('noAudioError')) document.getElementById('noAudioError').style.display = 'none';
     
+    if(document.getElementById('videoConfirm')) document.getElementById('videoConfirm').style.display = 'none';
     if(document.getElementById('videoFile')) document.getElementById('videoFile').value = '';
     if(document.getElementById('imageFile')) document.getElementById('imageFile').value = '';
     if(document.getElementById('audioFile')) document.getElementById('audioFile').value = '';
@@ -881,7 +898,7 @@ function restoreStoredState(key, showFn) {
 document.addEventListener('DOMContentLoaded', () => {
     const videoInput = document.getElementById('videoFile');
     if (videoInput) {
-        videoInput.addEventListener('change', handleUpload);
+        videoInput.addEventListener('change', showVideoConfirm);
         // A pipeline Start button on the home page links here with ?pipeline=1 or ?pipeline=2.
         const requestedPipeline = new URLSearchParams(window.location.search).get('pipeline');
         if (requestedPipeline === '1' || requestedPipeline === '2') {
